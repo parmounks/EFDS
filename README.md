@@ -46,11 +46,8 @@ This project is an AI-based system designed for the **early detection of forest 
 ## **Technologies Used**
 - **Frontend**: HTML, CSS
 - **Backend**: Flask API, Google Cloud
-- **AI Model**: Integrated with Google Earth Engine
+- **AI Model**: Google Colab, Phyton
 - **Notifications**: Twilio (SMS), Email API
 - **Data Management**: WebSocket, Axios/HTTP requests
 
-## **Installation and Setup**
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
+
