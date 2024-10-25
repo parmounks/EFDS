@@ -1,7 +1,7 @@
 # 🔥 AI-Based Real-Time Forest Fire Detection System
 
 ## **Project Overview**
-This project is an AI-based system designed for the **early detection of forest fires** using satellite imagery. The system integrates **Google Cloud**, **Flask API**, and **real-time notifications** to provide users with instant alerts upon fire detection. The primary goals include scalability, low latency, and interactive user notifications through SMS, email, and UI updates.
+This project is an AI-based system designed for the **early detection of forest fires** using satellite imagery. The system integrates **Google Cloud**, **Flask API**, and ** near real-time notifications** to provide users with instant alerts upon fire detection. The primary goals include scalability, low latency, and interactive user notifications through SMS, email, and UI updates.
 
 ## **Project Milestones**
 
