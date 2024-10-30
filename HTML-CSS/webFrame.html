@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="./css/font.css" />
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
     <link rel="stylesheet" type="text/css" href="./css/components.css" />
-    <link rel="stylesheet" type="text/css" href="./css/FrameTwelve.css" />
+    <link rel="stylesheet" type="text/css" href="./css/Frame.css" />
   </head>
   <body>
     <div class="column">
@@ -47,9 +47,28 @@
                 AI system utilizes satellite imagery to identify and monitor fires remotely
               </p>
               <div class="rowdetect_fire">
-                <button class="flex-row-center-center detect_fire">Detect fire</button>
-                <button class="flex-row-center-center map">MAP</button>
-              </div>
+                <nav class="navbar_search">
+                   <input type="text" class="search_input" placeholder="Search..." />
+                   <button class="dropdown_icon">&#9660;</button>
+                   <div class="dropdown_menu">
+                      <ul>
+                         <li><a href="api-link-near-me">Near Me</a></li>
+                         <li class="region-dropdown">
+                            <a href="api-link-select-region">Select By Region</a>
+                            <!-- Nested Dropdown for Cities and Province -->
+                            <ul class="province-dropdown">
+                               <li><a href="api-link-province">ONTARIO</a></li>
+                               <li><a href="api-link-city-1">Toronto</a></li>
+                               <li><a href="api-link-city-2">Hamilton</a></li>
+                               <li><a href="api-link-city-3">Oshawa</a></li>
+                            </ul>
+                         </li>
+                      </ul>
+                   </div>
+                </nav>
+             </div>
+             
+             
             </div>
           </div>
           <div class="rowtutorial">
@@ -72,9 +91,6 @@
                 <div class="columnjoinour">
                   <p class="ui text size-textmd">join our newsletter</p>
                   <div class="columnemailaddr">
-                    <div class="rowemailaddress">
-                      <p class="emailaddress ui text size-textxs">Email Address</p>
-                    </div>
                     <button class="flex-row-center-center submit">SUBMIT</button>
                   </div>
                 </div>
@@ -107,3 +123,20 @@
   </body>
 </html>
 
+<script>// JavaScript for toggling dropdown menu
+  document.querySelector('.dropdown_icon').addEventListener('click', function() {
+     document.querySelector('.navbar_search').classList.toggle('active');
+  });
+  // Open links programmatically if needed
+document.querySelectorAll('.province-dropdown li a').forEach(item => {
+   item.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default if using programmatic API calls
+      // Use the item's href attribute to connect to your API
+      const apiLink = item.getAttribute('href');
+      // API call or navigation logic
+      console.log(`Navigating to ${apiLink}`);
+      window.location.href = apiLink; // Remove if making API calls instead of navigation
+   });
+});
+
+  </script>
