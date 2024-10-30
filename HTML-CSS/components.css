@@ -1,3 +1,4 @@
+
 .ui.text.size-textxs {
   font-size: 16px;
   font-weight: 400;
@@ -30,9 +31,8 @@
   font-family: Roboto;
 }
 
-/*-------------------------------------
-  2. Heading CSS
---------------------------------------*/
+/*---Heading CSS-------*/
+
 .ui.heading.size-headingxs {
   font-size: 22px;
   font-weight: 800;
