@@ -3,19 +3,23 @@ body {
   padding: 0;
   font-family: Roboto;
 }
-
+/*
+star means apply to all elements
+*/
 * {
   box-sizing: border-box;
   line-height: normal;
   font-family: inherit;
   margin: unset;
 }
-
+/*link a  Removes default underline styling and displays links as 
+block elements, making them span the full width of their container. */
 a {
   text-decoration: none;
   display: block;
 }
 
+/* img  Sets images to adjust proportionally to different screens.*/
 img {
   max-width: 100%;
   height: auto;
@@ -44,17 +48,7 @@ input:where(:not([type])),
 [multiple],
 textarea,
 select,
-button {
-  appearance: none;
-  background-color: transparent;
-  border-color: unset;
-  border-width: 0;
-  border-radius: unset;
-  padding: unset;
-  font-size: unset;
-  line-height: unset;
-  color: inherit;
-}
+
 input:focus-visible,
 [multiple]:focus-visible,
 textarea:focus-visible,
