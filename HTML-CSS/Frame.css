@@ -16,11 +16,11 @@
 .four {
   height: 1812px;
   background-color: var(--gray_900);
-  background-image: url(../public/images/img_4.png);
+  background-image: url(../public/images/clear_background.png);
   background-size: cover;
-  background-repeat: no-repeat;
-  width: 82%;
-  padding: 74px 56px;
+  background-repeat:repeat-y;
+  width: 100%;
+  padding: 0;
   @media only screen {
     width: 100%;
     height: auto;
@@ -28,13 +28,13 @@
     padding-bottom: 32px;
   }
 
-  @media only screen and (max-width: 1050px) {
+  @media only screen {
     width: 100%;
     height: auto;
     padding: 20px;
   }
 
-  @media only screen and (max-width: 550px) {
+  @media only screen {
     padding: 16px;
   }
 }
@@ -63,26 +63,39 @@
     flex-direction: column;
   }
 }
-
-.headerlogo_one {
-  height: 36px;
-  align-self: center;
-  width: 64px;
-  object-fit: contain;
+.efds-text {
+  font-size: 32px; 
+  color: var(--gray_400); 
+  font-family: 'Outfit'; 
+  font-weight: 800; 
+  text-align: center; 
+  margin: 0; 
+  padding: 0; 
+  display: block; 
+  position: relative; 
 }
+
 
 .rowabout {
   gap: 138px;
   display: flex;
   flex-wrap: wrap;
   @media only screen and (max-width: 1440px) {
-    gap: 20px;
+    gap: 70px;
+  
   }
 
   @media only screen and (max-width: 1050px) {
     gap: 20px;
   }
 }
+
+
+.rowabout li a:hover {
+  color: red !important; /* this color change takes precedence */
+  transition: color 0.3s ease; 
+}
+
 
 .row {
   margin-top: 188px;
@@ -232,12 +245,12 @@
   }
 }
 
-/* learn more button*/
-.learn_more {
+/* Date button*/
+.api_test{
   color: var(--black_900);
   margin-top: 58px;
-  padding-left: 3px;
-  padding-right: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
   letter-spacing: 2px;
   font-family: Outfit;
   text-transform: uppercase;
@@ -246,6 +259,7 @@
   background-color: var(--gray_400);
   box-shadow: var(--shadow-xs);
   text-align: center;
+  transition: transform 0.3s ease;
   height: 60px;
   min-width: 270px;
   border-radius: var(--radius-sm);
@@ -258,6 +272,11 @@
     padding-right: 16px;
   }
 }
+.api_test:hover{
+  transform: scale(1.1);
+    color: rgb(104, 7, 7);              
+  }
+
 
 .row_two {
   margin-top: 258px;
@@ -273,92 +292,7 @@
   }
 }
 
-.efds {
-  color: var(--white_a700) !important;
-  margin-top: 22px;
-  font-size: large;
-}
 
-.columnjoinour {
-  gap: 40px;
-  align-self: center;
-  display: flex;
-  width: 44%;
-  flex-direction: column;
-  align-items: start;
-  @media only screen and (max-width: 1050px) {
-    width: 100%;
-  }
-}
-
-.columnemailaddr {
-  width: 56%;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  @media only screen and (max-width: 1440px) {
-    width: 100%;
-  }
-
-  @media only screen and (max-width: 1050px) {
-    width: 100%;
-  }
-}
-
-.rowemailaddress {
-  align-self: stretch;
-  display: flex;
-}
-
-
-/* need fixture */
-.submit {
-  color: var(--black_900);
-  margin-top: -40px;
-  padding-left: 18px;
-  padding-right: 18px;
-  letter-spacing: 1.4px;
-  font-family: Outfit;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: 500;
-  position: relative;
-  background-color: var(--gray_400);
-  box-shadow: var(--shadow-xs);
-  text-align: center;
-  height: 40px;
-  min-width: 94px;
-  border-radius: var(--radius-xs);
-}
-
-.row_one {
-  margin-top: -2px;
-  position: relative;
-}
-
-.columnemail {
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-}
-
-.rowemail {
-  gap: 116px;
-  display: flex;
-  align-items: start;
-  flex-wrap: wrap;
-  @media only screen and (max-width: 1440px) {
-    gap: 20px;
-  }
-
-  @media only screen and (max-width: 1050px) {
-    gap: 20px;
-  }
-}
-
-.aboutus-link {
-  align-self: end;
-}
 
 /* Navbar with search and dropdown */
 .navbar_search {
@@ -558,7 +492,7 @@
   color: var(--white_a700); /* White text */
 }
 
-/* Ensure Link Text Changes on Hover for Main Dropdown */
+/*  Link Text Changes on Hover for Main Dropdown */
 .dropdown_menu ul > li:hover > a {
   color: var(--red_hov);
 }
@@ -604,15 +538,27 @@
 }
 
 
-.rowgithub {
-  gap: 107px;
+.footer-container {
   display: flex;
-  flex-wrap: wrap;
-  @media only screen and (max-width: 1440px) {
-    gap: 20px;
-  }
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 3%; 
 
-  @media only screen and (max-width: 1050px) {
-    gap: 20px;
-  }
+  color: var(--gray_400);              
+  border-top:solid #444; /* Optional: Adds a subtle border at the top */
+}
+
+.footer-item {
+  margin: 0 70px;
+  white-space: nowrap;
+  text-decoration: none;    /* Removes underline from links */
+  color: var(--gray_400); 
+  font-size: 19px;
+  transition: color 0.3s ease;
+}
+
+
+.footer-item:hover {
+  color: red;              
 }
