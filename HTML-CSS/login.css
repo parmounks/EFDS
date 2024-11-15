@@ -1,0 +1,152 @@
+/* Reset margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif; 
+    background-color: #191818; /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  body {
+    background: url(loginback.jpg)() center;
+    background-size: cover;
+    margin: 0;
+  }
+  
+  .column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  
+  .image {
+    height: 410px;
+    align-self: center;
+    width: 38%;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    @media only screen and (max-width: 1050px) {
+      width: 100%;
+    }
+  }
+  .subscribe-section {
+    background-color: #d9cab3; /* Light background for the form */
+    width: 300px;
+    height: 600px;
+    padding: 10px;
+    
+  }
+  .subscribe-section {
+    background-color: #d9cab3;
+    display: flex;
+    border-radius: 30px;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    color: #000;
+    padding: 35px 395px 62px;
+    
+    font: 600 40px Roboto, sans-serif;
+  }
+  
+  .section-title {
+  
+    font-size: 40px; 
+    color: #000000;
+    white-space: nowrap; /* Prevents the text from wrapping */
+    overflow: hidden; 
+    text-overflow: ellipsis; /* Adds ellipsis if text is too long for the box */
+    text-align: center; /* Centers the text */
+    padding-bottom: 60px;
+  }
+  
+  .section-body {
+  
+    font-size: 17px; 
+    color: #080000;
+    white-space: nowrap; /* Prevents the text from wrapping */
+    overflow: hidden; 
+    text-overflow: ellipsis; /* Adds ellipsis if text is too long for the box */
+    text-align: center; /* Centers the text */
+    padding-bottom: 60px;
+  }
+  
+  
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .input-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-label {
+    margin-bottom: 7px;
+    font-size:20px ;
+    color:#191818;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background-color: #eee;
+  }
+  
+  input::placeholder {
+    color: #aaa;
+  }
+  
+  .subscribe-button {
+    background-color:#191818; /* Dark button background */
+    color: white;
+    border: none;
+    padding: 20px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .subscribe-button:hover{
+    background-color: #109461; /* Lighten button on hover */
+  }
+  
+  .main-page-button {
+    margin-top: 20px;
+    padding-left:60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    white-space: nowrap; 
+  }
+  
+  .location-button {
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background-color:#000; /* Light gray background, change as needed */
+    color: #d9cab3; /* Text color, change as needed */
+    cursor: pointer;
+    width: 100%; /* Optional: make the button expand to fill its container */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .location-button:hover {
+    background-color: #109461; /* Slightly darker on hover, adjust color as needed */
+  }
+  

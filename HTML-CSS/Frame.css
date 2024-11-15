@@ -1,30 +1,35 @@
 
 .about {
-  color: var(--gray_400) !important;
+  color: #ffff !important;
+  text-shadow: 2px 2px 4px black;
   /* override for this font*/
-  font-family: Outfit !important;
+  font-family: outfit !important;
 }
 
+body {
+  height: 100vh;
+  margin: 0; 
+}
 
-.column {
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Ensures the video stays in the background */
 }
 
 .four {
-  height: 1812px;
-  background-color: var(--gray_900);
-  background-image: url(../public/images/clear_background.png);
-  background-size: cover;
-  background-repeat:repeat-y;
+  height: 7000px;
+   background-size: cover;
   width: 100%;
   padding: 0;
   @media only screen {
     width: 100%;
     height: auto;
-    padding-top: 32px;
+    padding-top: 37px;
     padding-bottom: 32px;
   }
 
@@ -65,9 +70,10 @@
 }
 .efds-text {
   font-size: 32px; 
-  color: var(--gray_400); 
+  color: #ffff; 
+  text-shadow: 2px 2px 4px black;
   font-family: 'Outfit'; 
-  font-weight: 800; 
+  font-weight: 1000; 
   text-align: center; 
   margin: 0; 
   padding: 0; 
@@ -107,23 +113,21 @@
   }
 }
 
-.columndetect {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
 
 .h1 {
   font-family: Outfit !important;
-  text-shadow: 0px 4px 4px #0000003f;
+  color: #ffff !important; 
+  text-shadow: 7px 3px 7px rgb(0, 0, 0);
   @media only screen and (max-width: 1440px) {
     font-size: 48px;
   }
 }
-
+/*Not clear/////////////////////////////////////////*/
 .t1 {
-  color: var(--gray_400) !important;
+  color: var(--gray_400);
   margin-left: 10px;
+  color: #ffffff  !important; 
+  text-shadow: 14px 1px 14px black;
   width: 32%;
   line-height: 27px;
   @media only screen and (max-width: 1440px) {
@@ -144,8 +148,9 @@
 }
 
 .detect_fire {
-  color: var(--gray_900);
-  padding-left: 34px;
+  color: #ffff  !important; 
+  text-shadow: 4px 4px 4px black;
+  padding-left: 70px;
   padding-right: 34px;
   letter-spacing: 2px;
   font-family: Outfit;
@@ -187,31 +192,6 @@
   }
 }
 
-.image {
-  height: 410px;
-  align-self: center;
-  width: 38%;
-  object-fit: contain;
-  border-radius: var(--radius-lg);
-  @media only screen and (max-width: 1050px) {
-    width: 100%;
-  }
-}
-
-.columntutorial {
-  width: 44%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  @media only screen and (max-width: 1050px) {
-    width: 100%;
-  }
-}
-
-.tutorial {
-  color: var(--gray_400) !important;
-}
-
 .discoverand {
   margin-top: 16px;
   align-self: stretch;
@@ -221,6 +201,8 @@
 .h1_one {
   margin-bottom: 6px;
   font-family: Outfit !important;
+  color: #ffff  !important; 
+
   text-shadow: 0px 4px 4px #0000003f;
   @media only screen and (max-width: 1050px) {
     font-size: 35px;
@@ -232,7 +214,8 @@
 }
 
 .aisystem {
-  color: var(--gray_400) !important;
+  color: #ffff  !important; 
+  text-shadow: 4px 4px 4px black;
   margin-top: 54px;
   width: 74%;
   line-height: 27px;
@@ -546,14 +529,15 @@
   padding: 3%; 
 
   color: var(--gray_400);              
-  border-top:solid #444; /* Optional: Adds a subtle border at the top */
+  border-top:solid #e1e0c8; /* Optional: Adds a subtle border at the top */
 }
 
 .footer-item {
   margin: 0 70px;
   white-space: nowrap;
   text-decoration: none;    /* Removes underline from links */
-  color: var(--gray_400); 
+  color: #ffff  !important; 
+  text-shadow: 4px 4px 4px black;; 
   font-size: 19px;
   transition: color 0.3s ease;
 }
