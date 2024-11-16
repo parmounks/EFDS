@@ -1,0 +1,78 @@
+
+.ui.text.size-textxs {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  @media only screen and (max-width: 1440px) {
+    font-size: 13px;
+  }
+}
+
+.ui.text.size-texts {
+  font-size: 20px;
+  font-weight: 400;
+  font-style: normal;
+  @media only screen and (max-width: 1440px) {
+    font-size: 17px;
+  }
+}
+
+.ui.text.size-textmd {
+  font-size: 22px;
+  font-weight: 400;
+  font-style: normal;
+  @media only screen and (max-width: 1440px) {
+    font-size: 18px;
+  }
+}
+
+.ui.text {
+  color: var(--white_a700);
+  font-family: Roboto;
+}
+
+/*---Heading CSS-------*/
+
+.ui.heading.size-headingxs {
+  font-size: 22px;
+  font-weight: 800;
+  font-style: bold;
+  @media only screen and (max-width: 1440px) {
+    font-size: 18px;
+  }
+}
+
+.ui.heading.size-headings {
+  font-size: 55px;
+  font-weight: 600;
+  font-style: bold;
+  @media only screen and (max-width: 1440px) {
+    font-size: 46px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    font-size: 47px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 41px;
+  }
+}
+
+.ui.heading.size-headingmd {
+  font-size: 72px;
+  font-weight: 700;
+  font-style: bold;
+  @media only screen and (max-width: 1440px) {
+    font-size: 72px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    font-size: 48px;
+  }
+}
+
+.ui.heading {
+  color: var(--gray_400);
+  font-family: Roboto;
+}

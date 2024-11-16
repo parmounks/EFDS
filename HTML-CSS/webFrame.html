@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Frame 12</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <img
+      alt="Logo"
+      style="width: 0px; height: 0px; display: none"
+    />
+    <link rel="stylesheet" type="text/css" href="./index.css" />
+    <link rel="stylesheet" type="text/css" href="./font.css" />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <link rel="stylesheet" type="text/css" href="./components.css" />
+    <link rel="stylesheet" type="text/css" href="./Frame.css" />
+    <style>
+      .province-dropdown {
+          display: none; /* Initially hidden */
+          max-height: 300px; 
+          overflow-y: auto; /* Make it scrollable */
+          width: 100%; 
+          position: absolute; 
+          z-index: 1000; 
+      }
+
+      .province-dropdown.show {
+          display: block;
+      }
+  </style>
+  </head>
+  <body>
+    <video class="background-video" src="video2.mp4" muted loop autoplay></video>
+    <div class="column">
+      <div class="flex-col-center-center four">
+        <div class="columnheaderlog">
+          <header class="navbar">
+             <h1 class="efds-text">EFDS</h1>
+
+             <ul class="rowabout">
+              <li><a href="#" class="about ui text size-texts">about</a></li>
+              <li><a href="#" class="about ui text size-texts">contact</a></li>
+
+              <li><a href="login.html" class="about ui text size-texts">Subscribe</a></li>
+          </ul>
+          </header>
+          <div class="row">
+            <div class="columndetect">
+              <h1 class="h1 ui heading size-headingmd">AI Fire Detection with Satellite Imagery</h1>
+              <p class="t1 ui text size-texts">
+                AI system utilizes satellite imagery to identify and monitor fires remotely
+              </p>
+              <div class="rowdetect_fire">
+                <nav class="navbar_search">
+                  <input type="text" class="search_input" placeholder="Search Regions or Cities..." id="searchInput">
+                  <button class="dropdown_icon">&#9660;</button>
+                  <div class="dropdown_menu">
+                      <ul>
+                          <li class="region-dropdown">
+                              <a href="#">Select By Region</a>
+                              <ul class="province-dropdown" id="provinceDropdown">
+                                  <li><a href="#">ONTARIO</a></li>
+                                  <li><a href="#">Toronto</a></li>
+                                  <li><a href="#">Ottawa</a></li>
+                                  <li><a href="#">Mississauga</a></li>
+                                  <li><a href="#">Brampton</a></li>
+                                  <li><a href="#">Hamilton</a></li>
+                                  <li><a href="#">London</a></li>
+                                  <li><a href="#">Markham</a></li>
+                                  <li><a href="#">Vaughan</a></li>
+                                  <li><a href="#">Kitchener</a></li>
+                                  <li><a href="#">Windsor</a></li>
+                                  <li><a href="#">Richmond Hill</a></li>
+                                  <li><a href="#">Oakville</a></li>
+                                  <li><a href="#">Burlington</a></li>
+                                  <li><a href="#">Greater Sudbury</a></li>
+                                  <li><a href="#">Oshawa</a></li>
+                                  <li><a href="#">Barrie</a></li>
+                                  <li><a href="#">St. Catharines</a></li>
+                                  <li><a href="#">Cambridge</a></li>
+                                  <li><a href="#">Kingston</a></li>
+                                  <li><a href="#">Guelph</a></li>
+                                  <li><a href="#">Whitby</a></li>
+                                  <li><a href="#">Thunder Bay</a></li>
+                                  <li><a href="#">Waterloo</a></li>
+                                  <li><a href="#">Pickering</a></li>
+                                  <li><a href="#">Niagara Falls</a></li>
+                                  
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+              </nav>
+             </div>
+             
+             </div>
+            </div>
+          </div>
+          <div class="rowtutorial">
+           
+            <div class="columntutorial">
+              <div class="discoverand">
+                <h2 class="h1_one ui heading size-headings">How Does Our <br />AI System Work?</h2>
+              </div>
+              <p class="aisystem ui text size-texts">
+                AI system utilizes satellite imagery to identify and monitor fires remotely
+              </p>
+              <button class="flex-row-center-center api_test" onclick="window.location.href='https://efds-backend-302352956581.us-central1.run.app/'">Date-based Detection</button>
+
+            </div>
+          </div>
+          <div class="row_two">
+            <div>
+              <div class="rowefds">
+                <div class="columnjoinour">
+                  <div class="columnemailaddr">
+                  </div>
+                </div>
+              </div>
+              <div class="row_one">
+                <div class="columnemail">
+                  <div class="rowemail">
+                    <a href="Email" target="_blank" rel="noreferrer">
+                      <div class="footer-container">
+                        <a href="mailto:example@example.com" class="footer-item">Email</a>
+                        <a href="https://github.com" class="footer-item">Github</a>
+                        <a href="/about-us" class="footer-item">About Us</a>
+                        <a href="https://yorku.ca" class="footer-item">York University</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>// JavaScript for toggling dropdown menu
+  document.querySelector('.dropdown_icon').addEventListener('click', function() {
+  document.querySelector('.navbar_search').classList.toggle('active');
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    let dropdownBtnText = document.getElementById("drop-text");
+    let span = document.getElementById("span");
+    let icon = document.getElementById("icon");
+    let list = document.getElementById("list");
+    let input = document.getElementById("search-input");
+    let listItems = document.querySelectorAll(".dropdown-list-item");
+    // Toggle dropdown and rotate icon on button click
+    dropdownBtnText.onclick = function () {
+        list.classList.toggle("show");
+        icon.style.transform = list.classList.contains("show") ? "rotate(-180deg)" : "rotate(0deg)";
+    };
+    // Close dropdown if clicked outside
+    window.onclick = function (e) {
+        if (!dropdownBtnText.contains(e.target) && !icon.contains(e.target) && !span.contains(e.target)) {
+            list.classList.remove("show");
+            icon.style.transform = "rotate(0deg)";
+        }
+    };
+    // Handle clicking on dropdown items
+    listItems.forEach(item => {
+        item.onclick = function () {
+            span.innerText = this.innerText;
+            input.placeholder = this.innerText === "Everything" ? "Search Anything..." : "Search in " + this.innerText + "...";
+            list.classList.remove("show");
+            icon.style.transform = "rotate(0deg)";
+        };
+    });
+    // Implement search filtering
+    input.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        listItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(searchTerm) ? "" : "none";
+        });
+    });
+});
+    // JavaScript for toggling dropdown menu
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const dropdownIcon = document.querySelector('.dropdown_icon');
+        const dropdownMenu = document.getElementById('provinceDropdown');
+
+        dropdownIcon.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('show');
+        });
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown_icon') && !event.target.matches('.search_input')) {
+                dropdownMenu.classList.remove('show');
+            }
+        };
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const items = dropdownMenu.querySelectorAll('li');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+    });
+</script>
+  </script>
