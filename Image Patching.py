@@ -90,8 +90,8 @@ def process_images(input_folder, output_folder):
     print(f"All images from {input_folder} processed and saved in {output_folder}.")
 
 # Updated directories for your project structure
-input_folder = r"C:\Users\kella\OneDrive\Documents\University\Year 5 - 2024-2025\ENG 4000\Neural Network 2\Fires\Unprocessed"
-output_folder = r"C:\Users\kella\OneDrive\Documents\University\Year 5 - 2024-2025\ENG 4000\Neural Network 2\Fires\Processed"
+input_folder = base_directory\Fires\Unprocessed"
+output_folder = base_directory\Fires\Processed"
 
 # Process all images in the input folder
 process_images(input_folder, output_folder)
