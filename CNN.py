@@ -8,7 +8,7 @@ import numpy as np
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # Define the base directory for the dataset
-base_dir = r"C:\Users\kella\OneDrive\Documents\University\Year 5 - 2024-2025\ENG 4000\Neural Network 2\Dataset"
+base_dir = base_directory
 
 # Load the training dataset
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
