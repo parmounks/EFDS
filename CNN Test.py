@@ -6,7 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Define the path to the test dataset and the trained model
-base_dir = r"C:\Users\kella\OneDrive\Documents\University\Year 5 - 2024-2025\ENG 4000\Neural Network 2\Dataset"
+base_dir = base_directory
 test_dir = os.path.join(base_dir, 'Test')
 model_path = "best_fire_detection_model_32x32.h5"  # Path to your saved model file
 
