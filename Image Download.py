@@ -5,7 +5,7 @@ from io import BytesIO
 import datetime
 
 # Define base directory
-base_dir = 
+base_dir = base_directory
 
 # Bounding box for region of interest
 min_lat, max_lat = 57.5653, 67.6473
