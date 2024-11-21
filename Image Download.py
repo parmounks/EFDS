@@ -5,7 +5,7 @@ from io import BytesIO
 import datetime
 
 # Define base directory
-base_dir = r"C:\Users\kella\OneDrive\Documents\University\Year 5 - 2024-2025\ENG 4000\Neural Network 2"
+base_dir = 
 
 # Bounding box for region of interest
 min_lat, max_lat = 57.5653, 67.6473
