@@ -3,7 +3,7 @@ import shutil
 import random
 
 # Define base directory
-base_dir = r"C:\Users\kella\OneDrive\Documents\University\Year 5 - 2024-2025\ENG 4000\Neural Network 2"
+base_dir = base_directory
 dataset_dir = os.path.join(base_dir, 'Dataset')
 processed_dir = os.path.join(base_dir, 'Fires', 'Processed')  # Directory with processed images and subdirectories
 
