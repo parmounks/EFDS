@@ -5,11 +5,11 @@ from io import BytesIO
 import datetime
 
 # Define base directory
-base_dir = base_directory
+base_dir = user_home_directory
 
 # Bounding box for region of interest
-min_lat, max_lat = 57.5653, 67.6473
-min_lon, max_lon = -124.2212, -109.9602
+min_lat, max_lat = 29.4126, 46.0235
+min_lon, max_lon = -100.8872, -88.3698
 
 def create_dirs(base_path):
     """Creates common Unprocessed and Processed directory structure under Fires"""
@@ -52,8 +52,8 @@ layers=VIIRS_SNPP_CorrectedReflectance_TrueColor,MODIS_Combined_Thermal_Anomalie
         currentdate += datetime.timedelta(1)
 
 # Set date range for fire testing
-fires_start = datetime.date(2023, 7, 12)
-fires_end = datetime.date(2023, 8, 16)
+fires_start = datetime.date(2022, 4, 26)
+fires_end = datetime.date(2022, 5, 28)
 
 # Create common directories for fires
 dirs = create_dirs(base_dir)
