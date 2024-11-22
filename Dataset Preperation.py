@@ -69,7 +69,7 @@ def count_files_in_dataset(base_path):
     print(f"Total images in dataset: {total_count}")
 
 # Paths
-base_dir = user_home_directory"
+base_dir = user_home_directory
 processed_folder = os.path.join(base_dir, 'Fires', 'Processed')
 dataset_dir = os.path.join(base_dir, 'Dataset')
 
