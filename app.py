@@ -8,7 +8,8 @@ app = Flask(__name__)
 DATABASE = 'subscribe.db'
 
 def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
+    conn = sqlite3.connect('subscribe.db')
+    print("database connected!")
     conn.row_factory = sqlite3.Row
     return conn
 
