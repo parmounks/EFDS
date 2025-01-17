@@ -18,6 +18,7 @@ BBOX = '40.9210,-96.2010,57.6190,-73.2990'
 # Coordinates format : "city":"south_latitude,west_longitude,north_latitude,east_longitude"
 
 CITY_BBOX = {
+    "ontario": "40.9210,-96.2010,57.6190,-73.2990",
     "toronto": "43.5810,-79.6393,43.8554,-79.1169",
     "ottawa": "45.2488,-75.9270,45.5368,-75.4465",
     "mississauga": "43.5041,-79.7115,43.6860,-79.5794",

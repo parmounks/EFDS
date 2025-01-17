@@ -15,7 +15,7 @@ gcloud config get-value project
 
 # Enable App Engine
 echo "Enabling App Engine for the project..."
-gcloud app create --region=us-central
+cd 
 
 # Deploy the application
 echo "Deploying the application to App Engine..."

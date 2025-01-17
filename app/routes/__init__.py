@@ -8,6 +8,7 @@ def register_routes(app):
     from app.routes.health import health_bp
     from app.routes.report import report_bp
     from app.routes.set_region import set_region_bp
+    from app.routes.endpoint import endpoint_bp
 
     app.register_blueprint(home_bp)
     app.register_blueprint(get_image_bp)
@@ -18,3 +19,4 @@ def register_routes(app):
     app.register_blueprint(health_bp)
     app.register_blueprint(report_bp)
     app.register_blueprint(set_region_bp)
+    app.register_blueprint(endpoint_bp)

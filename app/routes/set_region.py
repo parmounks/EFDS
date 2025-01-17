@@ -3,23 +3,19 @@ from app.config import set_bbox, CITY_BBOX
 
 set_region_bp = Blueprint('set_region', __name__)
 
-@set_region_bp.route('/set_region', methods=['POST'])
+@set_region_bp.route('/set_region', methods=['GET', 'POST'])
 def set_region():
     """
     Route to set the region for the application.
-    Accepts a city name and updates the BBOX for that city.
+    Accepts a city name from the query string (GET) or request body (POST).
     """
-    data = request.get_json()
-
-    # Get the city name from the request
-    city = data.get('city', '').lower()
+    city = request.args.get('city', '').lower() or request.get_json(silent=True).get('city', '').lower()
     
     if not city or city not in CITY_BBOX:
         return jsonify({
-            "error": "Invalid or missing city. Available cities are: " + ", ".join(CITY_BBOX.keys())
+            "error": "Invalid or missing city. Available regions/cities are: " + ", ".join(CITY_BBOX.keys())
         }), 400
 
-    # Update the BBOX for the city
     set_bbox(city)
     return jsonify({
         "message": f"Region set to {city.title()}",
