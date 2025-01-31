@@ -1,4 +1,68 @@
 
+.ui.text.size-texts {
+  font-size: 20px;
+  font-weight: 400;
+  
+
+  @media only screen and (max-width: 1440px) {
+    font-size: 17px;
+  }
+}
+
+.ui.text {
+  color: var(--gray_400);
+  font-family: Roboto;
+  
+
+}
+
+
+
+/*Middle text design*/
+.ui.heading.size-headings {
+  font-size: 55px;
+  font-weight: 600;
+  font-style: bold;
+  @media only screen and (max-width: 1440px) {
+    font-size: 46px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    font-size: 47px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 41px;
+  }
+}
+
+.ui.heading.size-headingmd {
+  font-size: 72px;
+  font-weight: 700;
+  font-style: bold;
+  @media only screen and (max-width: 1440px) {
+    font-size: 72px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    font-size: 48px;
+  }
+}
+
+.ui.heading {
+  font-size: 20px;
+  color: var(--gray_400);
+  font-family: Roboto;
+  font-weight: 400;
+  
+  @media only screen and (max-width: 1440px) {
+    font-size: 17px;
+}
+}
+
+
+/*//////////////////////////////////////////////*/
+
 .about {
   color: #ffff !important;
   text-shadow: 2px 2px 4px black;
@@ -145,28 +209,6 @@ body {
   gap: 28px;
   align-self: stretch;
   display: flex;
-}
-
-.detect_fire {
-  color: #ffff  !important; 
-  text-shadow: 4px 4px 4px black;
-  padding-left: 70px;
-  padding-right: 34px;
-  letter-spacing: 2px;
-  font-family: Outfit;
-  text-transform: uppercase;
-  font-size: 20px;
-  font-weight: 600;
-  background-color: var(--gray_400);
-  box-shadow: var(--shadow-xs);
-  text-align: center;
-  height: 72px;
-  min-width: 258px;
-  border-radius: var(--radius-md);
-  @media only screen and (max-width: 1440px) {
-    font-size: 17px;
-  }
-
   @media only screen and (max-width: 550px) {
     padding-left: 16px;
     padding-right: 16px;
@@ -546,3 +588,40 @@ body {
 .footer-item:hover {
   color: red;              
 }
+
+
+
+:root {
+  /*------Color vars------*/
+  --black_900: #000000;
+  --black_900_3f: #0000003f;
+  --gray_400: #d9cab3;
+  --gray_900: #191818;
+  --white_a700: #ffffff;
+  --red_hov:red;
+
+  /*------Shadow vars------*/
+  --shadow-xs: 0 4px 4px 0 #0000003f;
+
+  /*------Border radius variables------*/
+  --radius-xs: 20px;
+  --radius-sm: 30px;
+  --radius-md: 36px;
+  --radius-lg: 120px;
+}
+
+/*------ Utility CSS--------------------------*/
+.flex-col-center-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-row-center-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+

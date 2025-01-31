@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_mail import Mail, Message
 import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # Database configuration
 DATABASE = 'subscribe.db'
@@ -26,7 +26,7 @@ mail = Mail(app)
 
 @app.route('/')
 def home():
-    return render_template('webFrame.html')  # Main page
+    return render_template('test.html') # Main page
 
 @app.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():
