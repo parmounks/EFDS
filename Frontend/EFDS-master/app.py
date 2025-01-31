@@ -49,7 +49,14 @@ def subscribe():
                     sender="parmounk@gmail.com",  # Explicit sender
                     recipients=[email]
                 )
-                msg.body = f"Hello,\n\nThank you for subscribing to our platform! We're excited to have you on board. Stay tuned for updates and notifications."
+                msg.body = (f"Hello,\n\n"
+                    f"Thank you for subscribing to our Early Fire Detection System (EFDS) platform! "
+                    f"We're excited to have you on board.\n\n"
+                    f"With your subscription, you'll receive real-time updates and alerts about any fire detected near your location. "
+                    f"Our goal is to help protect your community and keep you informed at all times.\n\n"
+                    f"Stay safe, and thank you for trusting EFDS to be part of your safety network.\n\n"
+                    f"Best regards,\n"
+                    f"The EFDS Team" )
                 mail.send(msg)
             except Exception as e:
                 return jsonify({"message": f"Subscription successful, but email sending failed: {str(e)}"}), 201

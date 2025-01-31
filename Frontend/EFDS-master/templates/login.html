@@ -9,42 +9,23 @@
 <body>
   <video class="background" src="{{ url_for('static', filename='video2.mp4') }}" muted loop autoplay></video>
   <section class="subscribe-section">
-    <h1 class="section-title">Welcome!</h1>
-    <h3 class="section-body">Subscribe to receive notification</h3>
-    <div class="content-wrapper"></div>
-    <!-- Removed action and method from the form -->
-    <form id="subscribeForm" class="form-wrapper">
-     
+    <div class="subscribe-content">
+      <h1 class="section-title">Welcome!</h1>
+      <h3 class="section-body">Subscribe to receive notifications</h3>
+      <form id="subscribeForm" class="form-wrapper">
         <div class="input-field email-field">
           <label for="email" class="input-label email-label visually-hidden">Email</label>
-          <input type="email" id="email" name="email" aria-label="Email" placeholder="Email" required>
+          <input type="email" id="email" name="email" aria-label="Email" placeholder="Enter your email" required>
         </div>
-     
-      <div class="input-field location-field">
-        <button type="button" id="location-button" class="location-button">Location</button>
-      </div>
-      <button type="submit" class="subscribe-button">
-        <span class="subscribe-text">Subscribe</span>
-      </button>
-    </form>
+        <div class="input-field location-field">
+          <button type="button" id="location-button" class="location-button">Get Location</button>
+        </div>
+        <button type="submit" class="subscribe-button">
+          <span class="subscribe-text">Subscribe</span>
+        </button>
+      </form>
+    </div>
   </section>
-  
-  <style>
-    body {
-      height: 100vh;
-      margin: 0;
-    }
-
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-  </style>
 
   <script>
     document.getElementById('location-button').addEventListener('click', function () {
@@ -55,11 +36,11 @@
       }
     });
 
-    // Updated form handling logic
     document.getElementById('subscribeForm').addEventListener('submit', async function (event) {
-      event.preventDefault(); // Prevent the default form submission
+      event.preventDefault();
 
       const formData = new FormData(event.target);
+      const emailInput = document.getElementById('email'); // Get the email input field
 
       try {
         const response = await fetch('http://127.0.0.1:5000/subscribe', {
@@ -69,7 +50,9 @@
 
         if (response.ok) {
           const result = await response.json();
-          alert(result.message); // Show a pop-up message on success
+          alert(result.message + "\n\nPlease go back to the main page. Click OK to continue."); // Show success message with go-back prompt
+          emailInput.value = ''; // Clear the email input field
+          window.location.href = "/"; // Redirect to the main page
         } else {
           const error = await response.json();
           alert(error.message); // Show an error message if submission fails
