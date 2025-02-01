@@ -1,0 +1,593 @@
+/*Website font is Roboto*/
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.7);
+}
+
+.columnheaderlog {
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0px;
+  padding: 20px;
+  margin: 10px;
+  max-width: 1282px;
+  max-height: 100%;
+  padding-top: 0% !important;
+}
+
+.h1 {
+  font-size: 72px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  animation: slideIn 1s ease-in-out;
+}
+
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ui.text.size-texts {
+  font-size: 20px;
+  font-weight: 400;
+  
+
+  @media only screen and (max-width: 1440px) {
+    font-size: 17px;
+  }
+}
+
+.ui.text {
+  color: var(--gray_400);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+
+}
+
+
+/*Middle text design*/
+.ui.heading.size-headings {
+  font-size: 55px;
+  font-weight: 600;
+  font-style: bold;
+  @media only screen and (max-width: 1440px) {
+    font-size: 46px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    font-size: 47px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 41px;
+  }
+}
+
+.ui.heading.size-headingmd {
+  font-size: 72px;
+  font-weight: 700;
+  font-style: bold;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  @media only screen and (max-width: 1440px) {
+    font-size: 72px;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    font-size: 48px;
+  }
+}
+
+.ui.heading {
+  font-size: 20px;
+  color: var(--gray_400);
+  font-family: Roboto;
+  font-weight: 400;
+  
+  @media only screen and (max-width: 1440px) {
+    font-size: 17px;
+}
+}
+
+
+.about {
+  color: #ffff !important;
+  text-shadow: 2px 2px 4px black;
+  /* override for this font*/
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+body {
+  height: 100vh;
+  margin: 0; 
+}
+
+
+.four {
+  height: 7000px;
+   background-size: cover;
+  width: 100%;
+  padding: 0;
+  @media only screen {
+    width: 100%;
+    height: auto;
+    padding-top: 37px;
+    padding-bottom: 32px;
+  }
+
+  @media only screen {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  @media only screen {
+    padding: 16px;
+  }
+}
+
+.columnheaderlog {
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 1282px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*Header components*/
+.navbar {
+  margin-left: 76px;
+  margin-right: 140px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    flex-direction: column;
+  }
+}
+/* Corner EFDS Brand text*/
+.efds-text {
+  font-size: 35px; 
+  color: #ffffff; 
+  text-shadow: 4px 4px 4px black;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  font-weight: 1000; 
+  text-align: center; 
+  margin: 0; 
+  padding: 0; 
+  display: block; 
+  position: relative; 
+}
+
+/* Gap between header options text - Not EFDS */
+.rowabout {
+  gap: 138px;
+  display: flex; /*puts them all in 1 line*/
+  flex-wrap: wrap;
+  padding-top: 10px;
+  @media only screen and (max-width: 1440px) {
+    gap: 70px;
+  
+  }
+
+  @media only screen and (max-width: 1050px) {
+    gap: 20px;
+  }
+}
+
+/* Color change of header items over hover*/
+.rowabout li a:hover {
+  color: #ffd93f !important; /* this color change takes precedence */
+  transition: color 0.3s ease;  /*Transition time*/
+}
+
+/*First paragraph in the page + description below*/
+.row {
+  margin-top: 188px;
+  margin-left: 52px;
+  margin-right: 52px;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+/*All big titles*/
+.h1 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  color: #ffff !important; 
+  text-shadow: 7px 3px 7px rgb(0, 0, 0);
+  @media only screen and (max-width: 1440px) {
+    font-size: 48px;
+  }
+}
+
+/*Description before title*/
+.t1 {
+  color: var(--gray_400);
+  margin-left: 10px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  color: #ffffff  !important; 
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  width: 32%;
+  line-height: 27px;
+  animation: fadeIn 1.5s ease-in-out; /*Delay time*/
+  
+  @media only screen and (max-width: 1440px) {
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+
+/*Seach province placeholder*/
+.rowdetect_fire {
+  margin-top: 34px;
+  gap: 28px;
+  align-self: stretch;
+  display: flex;
+  @media only screen and (max-width: 550px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/*This is for the space between the 2 titles, don't remove*/
+.rowtutorial {
+  margin-top: 185px; /*Distance from content above*/
+  padding-left: 600px; /*push the content to the very left*/
+  padding-right: 40px;
+  display:flex;
+  justify-content: space-between;
+  
+  gap: 40px;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+
+  @media only screen and (max-width: 550px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/*Additional spacing for second title, don't remove*/
+.discoverand {
+  margin-top: 25px;
+  align-self: stretch;
+  display: flex;
+}
+
+/*Font design for the description below the second title*/
+.h1_one {
+  margin-bottom: 6px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  color: #ffff  !important; 
+
+  text-shadow: 0px 4px 4px #0000003f;
+  @media only screen and (max-width: 1050px) {
+    font-size: 35px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 29px;
+  }
+}
+
+/* Text below the second title*/
+.aisystem {
+  color: #ffff  !important; 
+  text-shadow: 4px 4px 4px black;
+  margin-top: 54px;
+  width: 74%;
+  line-height: 27px;
+  animation: fadeIn 1.5s ease-in-out !important;
+  @media only screen and (max-width: 1440px) {
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+/* Date button*/
+.api_test{
+  margin-top: 58px;
+  padding-left: 20px;
+  padding-right: 20px;
+  letter-spacing: 2px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  text-transform: uppercase; /*Makes the text uppercase for button*/
+  font-weight: 600;
+  background-color:#d9cab3 !important;
+  box-shadow: var(--shadow-xs);
+  text-align: center;
+  transition: transform 0.3s ease;
+  height: 60px;
+  min-width: 270px;
+  border-radius: var(--radius-sm);
+  color:black;
+  border: none;
+  padding: 15px 30px;
+  font-size: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  @media only screen and (max-width: 1440px) {
+    font-size: 17px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/*Button hover*/
+.api_test:hover{
+  transform: scale(1.1);            
+  }
+
+
+/*footer placement in page --> adding margin top will count it toward the distance from the content above*/
+.row_two {
+  margin-top: 258px;
+}
+
+/*Footer items design*/
+.rowefds {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+/*Footer container design of box --> don't remove*/
+.footer-container {
+  display: flex; /*Keeps items in one line*/
+  justify-content: center;
+  align-items: center;
+  width: 100%;      
+}
+
+/*Footer items design*/
+.footer-item {
+  margin: 0 70px;
+  white-space: nowrap;
+  text-decoration: none;    /* Removes underline from links */
+  color: #ffff  !important; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  font-size: 19px;
+  transition: color 0.3s ease;
+}
+
+/*Footer items hover color change*/
+.footer-item:hover {
+  color:#ffd93f !important;              
+}
+
+
+/* Navbar with search and dropdown */
+.navbar_search {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   background-color:#d9cab3;
+   border-radius: 25px;
+   padding: 9px 17px;
+   box-shadow: var(--shadow-xs);
+   position: relative;
+}
+
+/* Search Input */
+.search_input {
+  flex-grow: 10;
+  padding: 9px 25px;
+  font-size: 16px;
+  border: 1.8px solid black; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+
+/* Dropdown Icon Button */
+.dropdown_icon {
+  background-color: transparent; 
+  border: 2px solid black;
+  cursor: pointer; /* changes on hover to pointer --> don't remove*/
+  font-size: 22px;
+  padding: 5px; /* Adds spacing inside the icon */
+  border-radius: 4px; /* border edges*/
+  transition: transform 0.3s ease; /* pointer change delay*/
+}
+
+/* Hover Effect--> Magnify */
+.dropdown_icon:hover {
+   transform: scale(1.1); /* magnify icon */
+   
+}
+
+/*Opens the icon to show the list*/
+.province-dropdown.show {
+  display: block;
+}
+/*Opens the icon to show the list*/
+.navbar_search.active .dropdown_menu {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Dropdown Menu */
+.dropdown_menu {
+   display: none;
+   position: absolute;
+   top: 100%;
+   background-color: var(--gray_400);
+   box-shadow: var(--shadow-xs);
+   margin-top: 8px;
+   
+}
+
+
+/* Dropdown Menu Items */
+.dropdown_menu ul {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+/* Don't remove --> black line between items in the list*/
+.dropdown_menu ul li {
+   padding: 8px 16px;
+   border-bottom: 2px solid var(--gray_900);
+}
+
+
+.dropdown_menu ul li a {
+   text-decoration: none;
+   color: var(--gray_900);
+   font-size: 14px;
+   display: block;
+}
+
+/* Hover effect for menu items */
+.dropdown_menu ul li:hover {
+   background-color: var(--gray_900_3f);
+}
+/* Main Dropdown Menu Items */
+.dropdown_menu ul li {
+   padding: 8px 16px;
+   transition: background-color 0.3s, color 0.3s;
+   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+
+/* Last item has no border */
+.province-dropdown li:last-child {
+   border-bottom: none;
+}
+
+
+/* Main dropdown menu styling */
+.dropdown_menu ul {
+   padding: 0;
+   margin: 0;
+}
+
+.region-dropdown {
+   position: relative;
+}
+
+.region-dropdown a {
+   display: inline-block;
+   padding: 8px 16px;
+   color: var(--gray_900);
+   text-decoration: none;
+}
+
+/* Province dropdown - hidden by default */
+.province-dropdown {
+   display: none;
+   position: absolute;
+   top: 0;
+   left: 100%;
+   background-color: var(--gray_400);
+   box-shadow: var(--shadow-xs);
+   border-radius: var(--radius-xs);
+   margin-top: 0;
+   padding: 0;
+   z-index: 2;
+   min-width: 120px;
+}
+
+/* Show nested dropdown when hovering over "Select By Region" */
+.region-dropdown:hover .province-dropdown {
+   display: block;
+}
+
+.province-dropdown li {
+   padding: 8px 16px;
+   border-bottom: 1px solid var(--gray_900);
+
+}
+
+
+.province-dropdown li a {
+   text-decoration: none;
+   color: var(--gray_900);
+   font-size: 14px;
+   display: block;
+}
+
+/* Hover effect for nested dropdown items */
+.province-dropdown li:hover {
+   background-color: var(--gray_900_3f);
+}
+/* Main Dropdown Menu Styling */
+.dropdown_menu ul > li {
+  padding: 8px 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dropdown menu items design */
+.dropdown_menu ul > li > a {
+  text-decoration: none;
+  color:#000000;
+  display: block;
+  font-size: 16px;
+}
+
+
+/* Dropdown hover */
+.dropdown_menu ul > li:hover > a {
+  color:#ff8d3b;
+}
+
+/* Province Dropdown Styling */
+.province-dropdown {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: var(--gray_400);
+  box-shadow: var(--shadow-xs);
+  border-radius: 3%;
+  margin-top: 0;
+  padding: 0;
+  z-index: 2;
+  min-width: 120px;
+}
+
+
+/*General directory to common codes --> don't remove*/
+:root {
+  --gray_400: #d9cab3;
+  --gray_900: #191818;
+  --shadow-xs: 0 4px 4px 0 #0000003f;
+  --radius-xs: 20px;
+  --radius-sm: 30px;
+  --radius-md: 36px;
+}

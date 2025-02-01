@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Frame 12</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+   
+  </head>
+  <body>
+    <video class="background-video" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
+    <div class="column">
+      <div class="flex-col-center-center four">
+        <div class="columnheaderlog">
+          <header class="navbar">
+             <h1 class="efds-text">EFDS</h1>
+             <ul class="rowabout">
+              <li><a href="#" class="about ui text size-texts">About</a></li>    <!--Write about the system-->
+              <li><a href="#" class="about ui text size-texts">Contact</a></li>
+              <li><a href="/subscribe" class="about ui text size-texts">Subscribe</a></li>
+             </ul>
+          </header>
+          <div class="row">
+            <div class="columndetect">
+              <h1 class="h1 ui heading size-headingmd">AI Fire Detection with Satellite Imagery</h1>
+              <p class="t1 ui text size-texts">
+                AI system utilizes satellite imagery to identify and monitor fires remotely
+              </p>
+              <div class="rowdetect_fire">
+                <nav class="navbar_search">
+                  <input type="text" class="search_input" placeholder="Search Regions or Cities..." id="searchInput">
+                  <button class="dropdown_icon">&#9660;</button>
+                  <div class="dropdown_menu" id="provinceDropdown">
+                    <ul>
+                        <li><a href="https://efds-ai.uc.r.appspot.com/set_region">Ontario</a></li>
+                        <li><a href="#">Alberta</a></li>
+                        <li><a href="#">British Columbia</a></li>
+                        <li><a href="#">Manitoba</a></li>
+                        <li><a href="#">New Brunswick</a></li>
+                        <li><a href="#">Newfoundland and Labrador</a></li>
+                        <li><a href="#">Northwest Territories</a></li>
+                        <li><a href="#">Nova Scotia</a></li>
+                        <li><a href="#">Nunavut</a></li>
+                        <li><a href="#">Prince Edward Island</a></li>
+                        <li><a href="#">Quebec</a></li>
+                        <li><a href="#">Saskatchewan</a></li>
+                        <li><a href="#">Yukon</a></li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+          <div class="rowtutorial">
+            <div class="columntutorial">
+              <div class="discoverand">
+                <h2 class="h1_one ui heading size-headings">How Does Our <br />AI System Work?</h2>
+              </div>
+              <p class="aisystem ui text size-texts">   <!--css defined, don't change-->
+                AI system utilizes satellite imagery to identify and monitor fires remotely
+              </p>
+              <button class="flex-row-center-center api_test" onclick="window.location.href='https://efds-ai.uc.r.appspot.com/'">Date-based Detection</button>
+            </div>
+          </div>
+          <div class="row_two">
+            <div>
+              <div class="rowefds">
+                <div class="columnjoinour">
+                  <div class="columnemailaddr"></div>
+                </div>
+              </div>
+              <div class="row_one">
+                <div class="columnemail">
+                  <div class="rowemail">
+                    <a href="Email" target="_blank" rel="noreferrer">
+                      <div class="footer-container">
+                        <a href="mailto:capstoneheroes@gmail.com" class="footer-item">Email</a>
+                        <a href="https://github.com/parmounks/EFDS.git" class="footer-item">Github</a>
+                        <a href="/about-us" class="footer-item">About Us</a> <!--t]TO BE DESIGNED-->
+                        <a href="https://yorku.ca" class="footer-item">York University</a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelector('.dropdown_icon').addEventListener('click', function() {
+        document.querySelector('.navbar_search').classList.toggle('active');
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('searchInput');
+        const dropdownIcon = document.querySelector('.dropdown_icon');
+        const dropdownMenu = document.getElementById('provinceDropdown');
+
+        dropdownIcon.addEventListener('click', function() {
+          dropdownMenu.classList.toggle('show');
+        });
+
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropdown_icon') && !event.target.matches('.search_input')) {
+            dropdownMenu.classList.remove('show');
+          }
+        };
+
+        searchInput.addEventListener('input', function() {
+          const searchTerm = searchInput.value.toLowerCase();
+          const items = dropdownMenu.querySelectorAll('li');
+
+          items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(searchTerm) ? '' : 'none';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
