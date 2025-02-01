@@ -18,7 +18,7 @@
 
 .columnheaderlog {
   backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(30, 30, 30, 0);
   border-radius: 0px;
   padding: 20px;
   margin: 10px;
@@ -30,7 +30,7 @@
 .h1 {
   font-size: 72px;
   font-weight: 700;
-  color: #fff;
+  color: #e0e0e0;
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   animation: slideIn 1s ease-in-out;
 }
@@ -204,6 +204,7 @@ body {
   margin-top: 188px;
   margin-left: 52px;
   margin-right: 52px;
+  margin-bottom: 90px;
   @media only screen and (max-width: 1050px) {
     margin-left: 0px;
     margin-right: 0px;
@@ -321,8 +322,8 @@ body {
   letter-spacing: 2px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
   text-transform: uppercase; /*Makes the text uppercase for button*/
-  font-weight: 600;
-  background-color:#d9cab3 !important;
+  font-weight: 650;
+  background-color:#ffffff !important;
   box-shadow: var(--shadow-xs);
   text-align: center;
   transition: transform 0.3s ease;
@@ -394,40 +395,48 @@ body {
 
 /* Navbar with search and dropdown */
 .navbar_search {
-   display: flex;
-   align-items: center;
-   gap: 10px;
-   background-color:#d9cab3;
-   border-radius: 25px;
-   padding: 9px 17px;
-   box-shadow: var(--shadow-xs);
-   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+  border-radius: 30px; 
+  padding: 10px 20px; /* Slightly more padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  position: relative;
+  transition: all 0.3s ease; 
 }
 
 /* Search Input */
 .search_input {
-  flex-grow: 10;
-  padding: 9px 25px;
+  flex-grow: 1;
+  padding: 10px 20px;
   font-size: 16px;
-  border: 1.8px solid black; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  border: none; 
+  background: transparent; 
+  outline: none; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #333; 
+}
+.search_input::placeholder {
+  color: #888; /* Lighter placeholder text */
 }
 
 
 /* Dropdown Icon Button */
 .dropdown_icon {
-  background-color: transparent; 
-  border: 2px solid black;
-  cursor: pointer; /* changes on hover to pointer --> don't remove*/
-  font-size: 22px;
-  padding: 5px; /* Adds spacing inside the icon */
-  border-radius: 4px; /* border edges*/
-  transition: transform 0.3s ease; /* pointer change delay*/
+  background-color: transparent;
+  border: none; /* Remove border */
+  cursor: pointer;
+  font-size: 24px; /* Slightly larger icon */
+  padding: 5px;
+  color: #333; /* Darker icon color */
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
 
 /* Hover Effect--> Magnify */
 .dropdown_icon:hover {
-   transform: scale(1.1); /* magnify icon */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  color: #ff8d3b;
    
 }
 
@@ -443,15 +452,18 @@ body {
 
 /* Dropdown Menu */
 .dropdown_menu {
-   display: none;
-   position: absolute;
-   top: 100%;
-   background-color: var(--gray_400);
-   box-shadow: var(--shadow-xs);
-   margin-top: 8px;
-   
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  border-radius: 15px;
+  margin-top: 10px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
 }
-
 
 /* Dropdown Menu Items */
 .dropdown_menu ul {
@@ -461,33 +473,29 @@ body {
 }
 /* Don't remove --> black line between items in the list*/
 .dropdown_menu ul li {
-   padding: 8px 16px;
-   border-bottom: 2px solid var(--gray_900);
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle separator */
+  transition: background-color 0.3s ease;
 }
 
 
 .dropdown_menu ul li a {
-   text-decoration: none;
-   color: var(--gray_900);
-   font-size: 14px;
-   display: block;
+  text-decoration: none;
+  color: #333; /* Darker text for better readability */
+  font-size: 16px;
+  display: block;
+  transition: color 0.3s ease;
 }
 
 /* Hover effect for menu items */
 .dropdown_menu ul li:hover {
-   background-color: var(--gray_900_3f);
+  background-color: rgba(0, 0, 0, 0.05);       /*Changes the background color to subtle gray*/
 }
 /* Main Dropdown Menu Items */
 .dropdown_menu ul li {
    padding: 8px 16px;
    transition: background-color 0.3s, color 0.3s;
    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-}
-
-
-/* Last item has no border */
-.province-dropdown li:last-child {
-   border-bottom: none;
 }
 
 
