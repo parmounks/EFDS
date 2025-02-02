@@ -16,21 +16,23 @@
   filter: brightness(0.7);
 }
 
+/* The opeque filter/cover over page*/
 .columnheaderlog {
   backdrop-filter: blur(3px);
-  background-color: rgba(30, 30, 30, 0);
-  border-radius: 0px;
+  background-color: rgba(30, 30, 30, 0); /*Transparent*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
   padding: 20px;
-  margin: 10px;
-  max-width: 1282px;
-  max-height: 100%;
-  padding-top: 0% !important;
+  z-index: 999;
 }
 
 .h1 {
   font-size: 72px;
   font-weight: 700;
-  color: #e0e0e0;
+  color: #FFFFFF;
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   animation: slideIn 1s ease-in-out;
 }
@@ -45,16 +47,14 @@
   font-size: 20px;
   font-weight: 400;
   
-
   @media only screen and (max-width: 1440px) {
     font-size: 17px;
   }
 }
 
 .ui.text {
-  color: var(--gray_400);
+  color: #C5D1D9;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-
 }
 
 
@@ -92,7 +92,7 @@
 
 .ui.heading {
   font-size: 20px;
-  color: var(--gray_400);
+  color: #C5D1D9;
   font-family: Roboto;
   font-weight: 400;
   
@@ -103,7 +103,7 @@
 
 
 .about {
-  color: #ffff !important;
+  color: #FFFFFF !important;
   text-shadow: 2px 2px 4px black;
   /* override for this font*/
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
@@ -112,6 +112,7 @@
 body {
   height: 100vh;
   margin: 0; 
+  position: relative;
 }
 
 
@@ -153,7 +154,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: start;
-  
+  text-shadow: 9px 9px 9px;
   @media only screen and (max-width: 1050px) {
     margin-left: 0px;
     margin-right: 0px;
@@ -166,8 +167,8 @@ body {
 /* Corner EFDS Brand text*/
 .efds-text {
   font-size: 35px; 
-  color: #ffffff; 
-  text-shadow: 4px 4px 4px black;
+  color: #FFFFFF; 
+  text-shadow: 9px 9px 9px black;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
   font-weight: 1000; 
   text-align: center; 
@@ -195,7 +196,7 @@ body {
 
 /* Color change of header items over hover*/
 .rowabout li a:hover {
-  color: #ffd93f !important; /* this color change takes precedence */
+  color:#FFD700 !important; 
   transition: color 0.3s ease;  /*Transition time*/
 }
 
@@ -214,7 +215,7 @@ body {
 /*All big titles*/
 .h1 {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-  color: #ffff !important; 
+  color: #FFFFFF !important; 
   text-shadow: 7px 3px 7px rgb(0, 0, 0);
   @media only screen and (max-width: 1440px) {
     font-size: 48px;
@@ -223,11 +224,11 @@ body {
 
 /*Description before title*/
 .t1 {
-  color: var(--gray_400);
+  color: #C5D1D9;
   margin-left: 10px;
   margin-top: 30px;
   margin-bottom: 5px;
-  color: #ffffff  !important; 
+  color: #FFFFFF  !important; 
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   width: 32%;
   line-height: 27px;
@@ -285,8 +286,7 @@ body {
 .h1_one {
   margin-bottom: 6px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-  color: #ffff  !important; 
-
+  color: #FFFFFF  !important; 
   text-shadow: 0px 4px 4px #0000003f;
   @media only screen and (max-width: 1050px) {
     font-size: 35px;
@@ -299,7 +299,7 @@ body {
 
 /* Text below the second title*/
 .aisystem {
-  color: #ffff  !important; 
+  color: #FFFFFF  !important; 
   text-shadow: 4px 4px 4px black;
   margin-top: 54px;
   width: 74%;
@@ -321,16 +321,16 @@ body {
   padding-right: 20px;
   letter-spacing: 2px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-  text-transform: uppercase; /*Makes the text uppercase for button*/
+  text-transform: uppercase;
   font-weight: 650;
-  background-color:#ffffff !important;
+  background-color: #e9d381f6 !important;
   box-shadow: var(--shadow-xs);
   text-align: center;
   transition: transform 0.3s ease;
   height: 60px;
   min-width: 270px;
   border-radius: var(--radius-sm);
-  color:black;
+  color: #000000;
   border: none;
   padding: 15px 30px;
   font-size: 15px;
@@ -348,7 +348,8 @@ body {
 
 /*Button hover*/
 .api_test:hover{
-  transform: scale(1.1);            
+  transform: scale(1.1); 
+  background-color: #e49d4be7 !important;          
   }
 
 
@@ -370,7 +371,7 @@ body {
 
 /*Footer container design of box --> don't remove*/
 .footer-container {
-  display: flex; /*Keeps items in one line*/
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;      
@@ -380,8 +381,8 @@ body {
 .footer-item {
   margin: 0 70px;
   white-space: nowrap;
-  text-decoration: none;    /* Removes underline from links */
-  color: #ffff  !important; 
+  text-decoration: none;
+  color: #FFFFFF  !important; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
   font-size: 19px;
   transition: color 0.3s ease;
@@ -389,7 +390,7 @@ body {
 
 /*Footer items hover color change*/
 .footer-item:hover {
-  color:#ffd93f !important;              
+  color:#FFD700 !important;              
 }
 
 
@@ -398,9 +399,9 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+  background-color: #e9d381f6 !important;
   border-radius: 30px; 
-  padding: 10px 20px; /* Slightly more padding */
+  padding: 10px 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
   position: relative;
   transition: all 0.3s ease; 
@@ -415,36 +416,34 @@ body {
   background: transparent; 
   outline: none; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #333; 
+  color: #000000; 
 }
 .search_input::placeholder {
-  color: #888; /* Lighter placeholder text */
+  color: #0000009e;
 }
 
 
 /* Dropdown Icon Button */
 .dropdown_icon {
   background-color: transparent;
-  border: none; /* Remove border */
+  border: none;
   cursor: pointer;
-  font-size: 24px; /* Slightly larger icon */
+  font-size: 24px;
   padding: 5px;
-  color: #333; /* Darker icon color */
-  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  color: #000000;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hover Effect--> Magnify */
 .dropdown_icon:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
-  color: #ff8d3b;
+  transform: scale(1.1);
+  color: #ff8800;
    
 }
 
-/*Opens the icon to show the list*/
 .province-dropdown.show {
   display: block;
 }
-/*Opens the icon to show the list*/
+
 .navbar_search.active .dropdown_menu {
   display: block;
   animation: fadeIn 0.3s ease-in-out;
@@ -457,41 +456,42 @@ body {
   top: 100%;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  background-color: #e9d381f6 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   margin-top: 10px;
   z-index: 1000;
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Dropdown Menu Items */
 .dropdown_menu ul {
    list-style: none;
    padding: 0;
    margin: 0;
 }
-/* Don't remove --> black line between items in the list*/
+
 .dropdown_menu ul li {
   padding: 10px 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle separator */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: background-color 0.3s ease;
 }
 
 
 .dropdown_menu ul li a {
   text-decoration: none;
-  color: #333; /* Darker text for better readability */
+  color: #000000 !important;
   font-size: 16px;
   display: block;
   transition: color 0.3s ease;
 }
 
-/* Hover effect for menu items */
 .dropdown_menu ul li:hover {
-  background-color: rgba(0, 0, 0, 0.05);       /*Changes the background color to subtle gray*/
+  background-color: rgba(255, 255, 255, 0.1);
 }
-/* Main Dropdown Menu Items */
+
+.dropdown_menu ul li a:hover{
+  color: #ff8800 !important;
+}
 .dropdown_menu ul li {
    padding: 8px 16px;
    transition: background-color 0.3s, color 0.3s;
@@ -499,7 +499,6 @@ body {
 }
 
 
-/* Main dropdown menu styling */
 .dropdown_menu ul {
    padding: 0;
    margin: 0;
@@ -512,17 +511,16 @@ body {
 .region-dropdown a {
    display: inline-block;
    padding: 8px 16px;
-   color: var(--gray_900);
+   color: #FFFFFF;
    text-decoration: none;
 }
 
-/* Province dropdown - hidden by default */
 .province-dropdown {
    display: none;
    position: absolute;
    top: 0;
    left: 100%;
-   background-color: var(--gray_400);
+   background-color: #1A2E28;
    box-shadow: var(--shadow-xs);
    border-radius: var(--radius-xs);
    margin-top: 0;
@@ -531,56 +529,50 @@ body {
    min-width: 120px;
 }
 
-/* Show nested dropdown when hovering over "Select By Region" */
 .region-dropdown:hover .province-dropdown {
    display: block;
 }
 
 .province-dropdown li {
    padding: 8px 16px;
-   border-bottom: 1px solid var(--gray_900);
-
+   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
 .province-dropdown li a {
    text-decoration: none;
-   color: var(--gray_900);
+   color: #FFFFFF;
    font-size: 14px;
    display: block;
 }
 
-/* Hover effect for nested dropdown items */
 .province-dropdown li:hover {
-   background-color: var(--gray_900_3f);
+   background-color: rgba(255, 255, 255, 0.1);
 }
-/* Main Dropdown Menu Styling */
+
 .dropdown_menu ul > li {
   padding: 8px 16px;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Dropdown menu items design */
 .dropdown_menu ul > li > a {
   text-decoration: none;
-  color:#000000;
+  color: #FFFFFF;
   display: block;
   font-size: 16px;
 }
 
 
-/* Dropdown hover */
 .dropdown_menu ul > li:hover > a {
-  color:#ff8d3b;
+  color: #FFD700;
 }
 
-/* Province Dropdown Styling */
 .province-dropdown {
   display: none;
   position: absolute;
   top: 0;
   left: 100%;
-  background-color: var(--gray_400);
+  background-color: #1A2E28;
   box-shadow: var(--shadow-xs);
   border-radius: 3%;
   margin-top: 0;
@@ -590,11 +582,10 @@ body {
 }
 
 
-/*General directory to common codes --> don't remove*/
 :root {
-  --gray_400: #d9cab3;
-  --gray_900: #191818;
-  --shadow-xs: 0 4px 4px 0 #0000003f;
+  --gray_400: #C5D1D9;
+  --gray_900: #1A2E28;
+  --shadow-xs: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   --radius-xs: 20px;
   --radius-sm: 30px;
   --radius-md: 36px;
