@@ -18,52 +18,53 @@
           <header class="navbar">
              <h1 class="efds-text">EFDS</h1>
              <ul class="rowabout">
-              <li><a href="#" class="about ui text size-texts">About</a></li>    <!--Write about the system-->
-              <li><a href="#" class="about ui text size-texts">Contact</a></li>
-              <li><a href="/subscribe" class="about ui text size-texts">Subscribe</a></li>
+              <li><a href="#" class="about ui text size-texts">About Us</a></li>    <!--Write about the system-->
+              <li><a href="mailto:capstoneheroes@gmail.com" class="about ui text size-texts">Contact Us</a></li>
+              <li><a href="#" class="about ui text size-texts">Navigate Page</a></li> 
              </ul>
           </header>
           <div class="row">
             <div class="columndetect">
               <h1 class="h1 ui heading size-headingmd">AI Fire Detection with Satellite Imagery</h1>
               <p class="t1 ui text size-texts">
-                AI system utilizes satellite imagery to identify and monitor fires remotely
+                AI system utilizes satellite imagery to identify and monitor fires remotely.  Subscribe To Stay Safe!
               </p>
-              <div class="rowdetect_fire">
-                <nav class="navbar_search">
-                  <input type="text" class="search_input" placeholder="Search Regions or Cities..." id="searchInput">
-                  <button class="dropdown_icon">&#9660;</button>
-                  <div class="dropdown_menu" id="provinceDropdown">
-                    <ul>
-                        <li><a href="https://efds-ai.uc.r.appspot.com/set_region">Ontario</a></li>
-                        <li><a href="#">Alberta</a></li>
-                        <li><a href="#">British Columbia</a></li>
-                        <li><a href="#">Manitoba</a></li>
-                        <li><a href="#">New Brunswick</a></li>
-                        <li><a href="#">Newfoundland and Labrador</a></li>
-                        <li><a href="#">Northwest Territories</a></li>
-                        <li><a href="#">Nova Scotia</a></li>
-                        <li><a href="#">Nunavut</a></li>
-                        <li><a href="#">Prince Edward Island</a></li>
-                        <li><a href="#">Quebec</a></li>
-                        <li><a href="#">Saskatchewan</a></li>
-                        <li><a href="#">Yukon</a></li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
+              <button id="subscribeButton" class="flex-row-center-center api_test">Subscribe</button>
             </div>
           </div>
           <div class="rowtutorial">
             <div class="columntutorial">
               <div class="discoverand">
-                <h2 class="h1_one ui heading size-headings">How Does Our <br />AI System Work?</h2>
+                <h2 class="h1_one ui heading size-headings">Place a Test</h2>
               </div>
               <p class="aisystem ui text size-texts">   <!--css defined, don't change-->
-                AI system utilizes satellite imagery to identify and monitor fires remotely
+                Are you wondering how our platform works? Receive a test alert right now!
               </p>
-              <button class="flex-row-center-center api_test" onclick="window.location.href='https://efds-ai.uc.r.appspot.com/'">Date-based Detection</button>
             </div>
+          </div>
+          <div class="rowdetect_fire">
+            <nav class="navbar_search">
+              <input type="text" class="search_input" placeholder="Search for Provinces..." id="searchInput">
+              <button class="dropdown_icon">&#9660;</button>
+              <div class="dropdown_menu" id="provinceDropdown">
+                <ul>
+                    
+                    <li><a href="#">Alberta</a></li>
+                    <li><a href="#">British Columbia</a></li>
+                    <li><a href="#">Manitoba</a></li>
+                    <li><a href="#">New Brunswick</a></li>
+                    <li><a href="#">Newfoundland and Labrador</a></li>
+                    <li><a href="#">Northwest Territories</a></li>
+                    <li><a href="#">Nova Scotia</a></li>
+                    <li><a href="#">Nunavut</a></li>
+                    <li><a href="https://efds-ai.uc.r.appspot.com/set_region">Ontario</a></li>
+                    <li><a href="#">Prince Edward Island</a></li>
+                    <li><a href="#">Quebec</a></li>
+                    <li><a href="#">Saskatchewan</a></li>
+                    <li><a href="#">Yukon</a></li>
+                </ul>
+              </div>
+            </nav>
           </div>
           <div class="row_two">
             <div>
@@ -77,9 +78,9 @@
                   <div class="rowemail">
                     <a href="Email" target="_blank" rel="noreferrer">
                       <div class="footer-container">
-                        <a href="mailto:capstoneheroes@gmail.com" class="footer-item">Email</a>
-                        <a href="https://github.com/parmounks/EFDS.git" class="footer-item">Github</a>
-                        <a href="/about-us" class="footer-item">About Us</a> <!--t]TO BE DESIGNED-->
+                        <a href="mailto:capstoneheroes@gmail.com" class="footer-item">FAQs</a> <!--TO BE DESIGNED-->
+                        <a href="https://github.com/parmounks/EFDS.git" class="footer-item">Privacy Policy</a>
+                        <a href="/about-us" class="footer-item">Safety Disclaimer</a> <!--TO BE DESIGNED: A notice that the system is an aid and should not replace emergency response protocols.-->
                         <a href="https://yorku.ca" class="footer-item">York University</a>
                       </div>
                     </a>
@@ -111,6 +112,10 @@
             dropdownMenu.classList.remove('show');
           }
         };
+  /* This part is used for navigation on button*/
+        document.getElementById("subscribeButton").addEventListener("click", function() {
+    window.location.href = "/subscribe";
+});
 
         searchInput.addEventListener('input', function() {
           const searchTerm = searchInput.value.toLowerCase();

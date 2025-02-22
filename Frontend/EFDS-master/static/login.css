@@ -123,3 +123,80 @@ input::placeholder {
 .location-button:hover {
   background-color: #FA7E61;
 }
+
+
+.categorySelection {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.sectionTitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 55px;
+  margin-bottom: 0%;
+}
+.categoryColumn {
+  padding: 2px;
+  min-width: 200px;
+  margin-top: 0px;
+}
+.categoryName {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.categorySelected {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  padding-right: 127px;
+  padding-left: 0%;
+  padding-bottom: 0%;
+}
+
+.subcategoryList {
+  list-style-type: none;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+}
+.subcategoryItem {
+  margin-bottom: 5px;
+}
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f2f0f1;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.selectedCategories {
+  margin-top: 20px;
+}
+.categoryChip {
+  display: inline-flex;
+  align-items: center;
+  background-color: #FA7E61;
+  border-radius: 48px;
+  padding: 6px 16px;
+  margin: 5px;
+  font-weight: 600;
+}
+.removeChip {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
