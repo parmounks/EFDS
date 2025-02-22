@@ -16,15 +16,25 @@
       <div class="flex-col-center-center four">
         <div class="columnheaderlog">
           <header class="navbar">
-             <h1 class="efds-text">EFDS</h1>
-             <ul class="rowabout">
-              <li><a href="#" class="about ui text size-texts">About Us</a></li>    <!--Write about the system-->
+            <h1 class="efds-text">EFDS</h1>
+            <ul class="rowabout">
+              <li><a href="#" class="about ui text size-texts">About Us</a></li>
               <li><a href="mailto:capstoneheroes@gmail.com" class="about ui text size-texts">Contact Us</a></li>
-              <li><a href="#" class="about ui text size-texts">Navigate Page</a></li> 
-             </ul>
+              <li class="dropdown-nav">
+                <a href="#" class="about ui text size-texts">Navigate Page ▼</a>
+                <div class="dropdown-nav-menu">
+                  <ul>
+                    <li><a href="#home">Subscription</a></li>
+                    <li><a href="#test-alert">Test Alert</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+
+                  </ul>
+                </div>
+              </li>
+            </ul>
           </header>
           <div class="row">
-            <div class="columndetect">
+            <div class="columndetect" id="home">
               <h1 class="h1 ui heading size-headingmd">AI Fire Detection with Satellite Imagery</h1>
               <p class="t1 ui text size-texts">
                 AI system utilizes satellite imagery to identify and monitor fires remotely.  Subscribe To Stay Safe!
@@ -33,7 +43,7 @@
             </div>
           </div>
           <div class="rowtutorial">
-            <div class="columntutorial">
+            <div class="columntutorial" id="test-alert">
               <div class="discoverand">
                 <h2 class="h1_one ui heading size-headings">Place a Test</h2>
               </div>
@@ -66,7 +76,65 @@
               </div>
             </nav>
           </div>
-          <div class="row_two">
+          <div class="rowfaq" id="faq">
+            <div class="columnfaq">
+              <div class="discoverand">
+                <h2 class="h1_one ui heading size-headings">Frequently Asked Questions</h2>
+              </div>
+              <div class="faq-container">
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How often are fire alerts updated?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    Our system updates fire detection data every 4 hours using the latest satellite imagery.
+                  </div>
+                </div>
+                <!---------------------------------------------->
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How can I receive fire alerts?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    You can subscribe to our alerts by clicking the "Subscribe" button on our homepage. Alerts will be delivered via email, and your email address will be used solely for receiving fire alerts—no promotional or sales notifications will be sent.
+                  </div>
+                </div>
+                  <!---------------------------------------------->
+                  <!---------------------------------------------->
+                <div class="faq-item">
+                  <div class="faq-question">
+                    Can I receive an alert without having a subscription?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    No. Due to the limited number of servers available for this project, you will not receive any notification about fire if your email is not in our database.  
+                  </div>
+                </div>
+                  <!----------------------------------------------> 
+                <div class="faq-item">
+                  <div class="faq-question">
+                    What regions do you cover?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    We currently monitor three Canadian provinces—Alberta, British Columbia, and Ontario—due to their high fire risk, particularly during the spring and summer seasons.
+                  </div>
+                </div>
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How accurate are the alerts?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    Our AI system has a 98% accuracy rate verified by satellite data and ground truth reporting.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row_two" id="footer">
             <div>
               <div class="rowefds">
                 <div class="columnjoinour">
@@ -78,9 +146,9 @@
                   <div class="rowemail">
                     <a href="Email" target="_blank" rel="noreferrer">
                       <div class="footer-container">
-                        <a href="mailto:capstoneheroes@gmail.com" class="footer-item">FAQs</a> <!--TO BE DESIGNED-->
-                        <a href="https://github.com/parmounks/EFDS.git" class="footer-item">Privacy Policy</a>
-                        <a href="/about-us" class="footer-item">Safety Disclaimer</a> <!--TO BE DESIGNED: A notice that the system is an aid and should not replace emergency response protocols.-->
+                        <a href="https://github.com/parmounks/EFDS.git" class="footer-item">Github</a>
+                        <a href="mailto:capstoneheroes@gmail.com" class="footer-item">Email</a>
+                        <a href="https://lassonde.yorku.ca/" class="footer-item">Lassonde</a> 
                         <a href="https://yorku.ca" class="footer-item">York University</a>
                       </div>
                     </a>
@@ -115,6 +183,33 @@
   /* This part is used for navigation on button*/
         document.getElementById("subscribeButton").addEventListener("click", function() {
     window.location.href = "/subscribe";
+});
+
+
+document.querySelectorAll('.dropdown-nav-menu a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const section = document.querySelector(this.getAttribute('href'));
+    section.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('.dropdown-nav-menu').classList.remove('show');
+  });
+});
+
+// FAQ Toggle Functionality
+document.querySelectorAll('.faq-question').forEach(item => {
+  item.addEventListener('click', function() {
+    const answer = this.nextElementSibling;
+    const icon = this.querySelector('.toggle-icon');
+    
+    this.classList.toggle('active');
+    answer.classList.toggle('active');
+    
+    if (this.classList.contains('active')) {
+      icon.textContent = '-';
+    } else {
+      icon.textContent = '+';
+    }
+  });
 });
 
         searchInput.addEventListener('input', function() {
