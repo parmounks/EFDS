@@ -17,49 +17,62 @@ def home():
                     margin: 0;
                     text-align: center;
                     font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
                 }
                 h1 {
-                    font-size: 48px;
+                    font-size: 36px;
+                    margin-bottom: 10px;
                 }
                 form {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    padding: 20px;
+                    background: white;
+                    border-radius: 10px;
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                 }
-                input, button {
+                input, button, select {
                     margin-top: 10px;
                     padding: 10px;
-                    font-size: 18px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+                button {
+                    background-color: #007BFF;
+                    color: white;
+                    cursor: pointer;
+                    border: none;
+                }
+                button:hover {
+                    background-color: #0056b3;
                 }
             </style>
-            <script>
-                function toggleDateInput() {
-                    var specificDateInputs = document.getElementById('specificDateInputs');
-                    if (document.getElementById('specific').checked) {
-                        specificDateInputs.style.display = 'block';
-                    } else {
-                        specificDateInputs.style.display = 'none';
-                    }
-                }
-            </script>
         </head>
         <body>
             <h1>Welcome to AI-BASED EFDS!</h1>
-            <p>Select "Live" to view the latest image or "Specific Date" to choose a date:</p>
+            <p>Please select a date to view the fire detection image:</p>
             <form action="/get_image" method="get">
-                <label>
-                    <input type="radio" name="type" value="live" id="live" onclick="toggleDateInput()" checked>
-                    Live
-                </label>
-                <label>
-                    <input type="radio" name="type" value="specific" id="specific" onclick="toggleDateInput()">
-                    Specific Date
-                </label>
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
 
-                <div id="specificDateInputs" style="display: none;">
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" name="date">
-                </div>
+                <label for="region">Select Province:</label>
+                <select id="region" name="region">
+                    <option value="ontario">Ontario</option>
+                    <option value="british_columbia">British Columbia</option>
+                    <option value="alberta">Alberta</option>
+                    <option value="quebec">Quebec</option>
+                    <option value="manitoba">Manitoba</option>
+                    <option value="saskatchewan">Saskatchewan</option>
+                    <option value="newfoundland_and_labrador">Newfoundland and Labrador</option>
+                    <option value="new_brunswick">New Brunswick</option>
+                    <option value="nova_scotia">Nova Scotia</option>
+                    <option value="prince_edward_island">Prince Edward Island</option>
+                    <option value="northwest_territories">Northwest Territories</option>
+                    <option value="nunavut">Nunavut</option>
+                    <option value="yukon">Yukon</option>
+                </select>
 
                 <button type="submit">View Image</button>
             </form>

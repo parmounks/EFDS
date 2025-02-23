@@ -1,108 +1,75 @@
 from flask import Blueprint, request, jsonify, send_file
-from app.services.fetch_image import fetch_latest_image, cached_image
 from PIL import Image
 from io import BytesIO
 import requests
-import datetime
-from app.config import BASE_URL, LAYER, FORMAT, CRS, BBOX, WIDTH, HEIGHT
+from app.config import BASE_URL, LAYER, FORMAT, CRS, PROVINCE_BBOX, WIDTH, HEIGHT
 
 get_image_bp = Blueprint('get_image', __name__)
 
 @get_image_bp.route('/get_image', methods=['GET'])
 def get_image():
     """
-    Endpoint to fetch a live or specific-date satellite image.
+    Endpoint to fetch a satellite image for a specific date and selected region.
     """
-    image_type = request.args.get('type', 'live').lower()  # Default to 'live'
+    # Retrieve the 'date' parameter from the query string
+    date_str = request.args.get('date')
+    if not date_str:
+        return jsonify({"error": "Please provide a valid date in the format YYYY-MM-DD."}), 400
 
-    if image_type == 'live':
-        # Use today's date for the live request
-        date_str = datetime.datetime.utcnow().strftime('%Y-%m-%d')
-        print(f"Processing live image request for date: {date_str}")
+    # Retrieve the 'region' parameter from the query string
+    region = request.args.get('region')
+    if not region:
+        return jsonify({"error": "Please provide a region."}), 400
 
-        params = {
-            'service': 'WMS',
-            'request': 'GetMap',
-            'version': '1.3.0',
-            'layers': LAYER,
-            'styles': '',
-            'format': FORMAT,
-            'transparent': 'false',
-            'height': HEIGHT,
-            'width': WIDTH,
-            'crs': CRS,
-            'bbox': BBOX,
-            'time': date_str
-        }
+    # Normalize the region name: replace underscores with spaces and convert to lowercase
+    normalized_region = region.replace('_', ' ').lower()
 
-        try:
-            response = requests.get(BASE_URL, params=params, timeout=60)
-            response.raise_for_status()
+    # Check if the normalized region exists in the PROVINCE_BBOX dictionary
+    if normalized_region not in PROVINCE_BBOX:
+        available_regions = ', '.join(PROVINCE_BBOX.keys())
+        return jsonify({
+            "error": f"Invalid region '{region}'. Available regions are: {available_regions}."
+        }), 400
 
-            # Check if the response contains a valid image
-            if 'image' not in response.headers.get('Content-Type', ''):
-                print("Error: The response does not contain a valid image.")
-                return jsonify({"error": "The response is not a valid image"}), 400
+    # Define parameters for the WMS request
+    params = {
+        'service': 'WMS',
+        'request': 'GetMap',
+        'version': '1.3.0',
+        'layers': LAYER,
+        'styles': '',
+        'format': FORMAT,
+        'transparent': 'false',
+        'height': HEIGHT,
+        'width': WIDTH,
+        'crs': CRS,
+        'bbox': PROVINCE_BBOX[normalized_region],  # Use the bounding box for the selected region
+        'time': date_str
+    }
 
-            # Process the image
-            image = Image.open(BytesIO(response.content))
-            if image.mode == 'RGBA':
-                print("Converting live image from RGBA to RGB.")
-                image = image.convert('RGB')
+    try:
+        # Make the request to the WMS server with a timeout
+        response = requests.get(BASE_URL, params=params, timeout=10)  # Timeout after 10 seconds
+        response.raise_for_status()
 
-            img_io = BytesIO()
-            image.save(img_io, 'JPEG')
-            img_io.seek(0)
+        # Measure the response time
+        response_time = response.elapsed.total_seconds()
+        print(f"Response time: {response_time} seconds")
 
-            # Cache the image for future live requests
-            global cached_image
-            cached_image = img_io
+        # Check if the response contains an image
+        if 'image' not in response.headers.get('Content-Type', ''):
+            return jsonify({"error": "The response is not a valid image."}), 400
 
-            return send_file(img_io, mimetype='image/jpeg')
+        # Open the image from the response content
+        image = Image.open(BytesIO(response.content))
+        img_io = BytesIO()
+        image.save(img_io, 'JPEG')
+        img_io.seek(0)
 
-        except requests.exceptions.RequestException as e:
-            return jsonify({"error": f"HTTP error occurred: {e}"}), 500
-        except Exception as err:
-            return jsonify({"error": f"An error occurred: {err}"}), 500
+        # Send the image file in the response
+        return send_file(img_io, mimetype='image/jpeg')
 
-    elif image_type == 'specific':
-        # Specific date request logic remains unchanged
-        date_str = request.args.get('date')
-        if not date_str:
-            return jsonify({"error": "Please provide a valid date for specific date option"}), 400
-
-        params = {
-            'service': 'WMS',
-            'request': 'GetMap',
-            'version': '1.3.0',
-            'layers': LAYER,
-            'styles': '',
-            'format': FORMAT,
-            'transparent': 'false',
-            'height': HEIGHT,
-            'width': WIDTH,
-            'crs': CRS,
-            'bbox': BBOX,
-            'time': date_str
-        }
-
-        try:
-            response = requests.get(BASE_URL, params=params, timeout=60)
-            response.raise_for_status()
-
-            if 'image' not in response.headers.get('Content-Type', ''):
-                return jsonify({"error": "The response is not a valid image"}), 400
-
-            image = Image.open(BytesIO(response.content))
-            img_io = BytesIO()
-            image.save(img_io, 'JPEG')
-            img_io.seek(0)
-            return send_file(img_io, mimetype='image/jpeg')
-
-        except requests.exceptions.RequestException as e:
-            return jsonify({"error": f"HTTP error occurred: {e}"}), 500
-        except Exception as err:
-            return jsonify({"error": f"An error occurred: {err}"}), 500
-
-    else:
-        return jsonify({"error": "Invalid image type. Choose 'live' or 'specific'."}), 400
+    except requests.exceptions.Timeout:
+        return jsonify({"error": "The request timed out. Please try again later."}), 504
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"An error occurred: {e}"}), 500

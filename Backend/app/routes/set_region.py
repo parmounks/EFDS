@@ -1,31 +1,27 @@
-from flask import Blueprint, request, jsonify
-from app.config import set_bbox, CITY_BBOX
+from flask import Blueprint, request, jsonify, session
+from app.config import PROVINCE_BBOX
 
 set_region_bp = Blueprint('set_region', __name__)
 
-@set_region_bp.route('/set_region', methods=['POST', 'GET'])
+@set_region_bp.route('/set_region', methods=['GET', 'POST'])
 def set_region():
     """
     Route to set the region for the application.
-    Accepts a city name and updates the BBOX for that city.
+    Accepts a province name from the query string (GET) or request body (POST).
     """
-    if request.method == 'POST':
-        data = request.get_json(silent=True) or {}
-        city = data.get('city', '').lower()
-    elif request.method == 'GET':
-        city = request.args.get('city', '').lower()
+    # Retrieve the province from query parameters or JSON request body
+    province = request.args.get("province", "").lower() or \
+               (request.get_json(silent=True) or {}).get("province", "").lower()
 
-    # Get the city name from the request
-    city = data.get('city', '').lower()
-    
-    if not city or city not in CITY_BBOX:
+    if not province or province not in PROVINCE_BBOX:
         return jsonify({
-            "error": "Invalid or missing city. Available cities are: " + ", ".join(CITY_BBOX.keys())
+            "error": "Invalid or missing province. Available regions are: " + ", ".join(PROVINCE_BBOX.keys())
         }), 400
 
-    # Update the BBOX for the city
-    set_bbox(city)
+    # Store the selected province in the session
+    session['province'] = province
+
     return jsonify({
-        "message": f"Region set to {city.title()}",
-        "bbox": CITY_BBOX[city]
+        "message": f"Region set to {province.title()}",
+        "bbox": PROVINCE_BBOX[province]
     })
