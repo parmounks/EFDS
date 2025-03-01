@@ -1,0 +1,71 @@
+import os
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Paths to folders
+base_folder = r"/home/capstoneheroes/EFDS-AI/Neural Network/Fire_Images"
+labelled_folder = os.path.join(base_folder, "Labelled")
+unlabelled_folder = os.path.join(base_folder, "Unlabelled")
+output_folder = os.path.join(base_folder, "Fire_Masks_Plots")  # Folder to save plots
+os.makedirs(output_folder, exist_ok=True)  # Create folder if it doesn't exist
+
+# List files
+labelled_files = sorted([f for f in os.listdir(labelled_folder) if f.endswith('.png')])
+unlabelled_files = sorted([f for f in os.listdir(unlabelled_folder) if f.endswith('.png')])
+
+# Ensure files match
+assert len(labelled_files) == len(unlabelled_files), "Mismatch in labelled and unlabelled files count!"
+for lbl, unlbl in zip(labelled_files, unlabelled_files):
+    assert lbl.replace('labelled', 'unlabelled') == unlbl, f"Files {lbl} and {unlbl} do not match!"
+
+# Load and preprocess images
+def load_images(folder, file_list, img_size=(224, 224)):
+    images = []
+    for file in file_list:
+        img_path = os.path.join(folder, file)
+        img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+        img = cv2.resize(img, img_size)  # Resize for consistency
+        images.append(img)
+    return np.array(images)
+
+labelled_images = load_images(labelled_folder, labelled_files)
+unlabelled_images = load_images(unlabelled_folder, unlabelled_files)
+print(f"Loaded {len(labelled_images)} labelled and {len(unlabelled_images)} unlabelled images.")
+
+# Generate difference masks
+fire_masks = []
+for lbl_img, unlbl_img in zip(labelled_images, unlabelled_images):
+    difference = cv2.absdiff(lbl_img, unlbl_img)  # Compute pixel-wise difference
+    gray_diff = cv2.cvtColor(difference, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+    _, binary_mask = cv2.threshold(gray_diff, 50, 255, cv2.THRESH_BINARY)  # Binarize
+    fire_masks.append(binary_mask)
+
+fire_masks = np.array(fire_masks)
+
+# Save plots for each pair
+for i, (lbl_img, unlbl_img, mask) in enumerate(zip(labelled_images, unlabelled_images, fire_masks)):
+    plt.figure(figsize=(12, 6))
+    
+    # Labelled Image
+    plt.subplot(1, 3, 1)
+    plt.imshow(cv2.cvtColor(lbl_img, cv2.COLOR_BGR2RGB))
+    plt.title("Labelled Image")
+    
+    # Unlabelled Image
+    plt.subplot(1, 3, 2)
+    plt.imshow(cv2.cvtColor(unlbl_img, cv2.COLOR_BGR2RGB))
+    plt.title("Unlabelled Image")
+    
+    # Fire Mask
+    plt.subplot(1, 3, 3)
+    plt.imshow(mask, cmap='hot')
+    plt.title("Generated Fire Mask")
+    
+    # Save the plot
+    output_path = os.path.join(output_folder, f"plot_{i}.png")
+    plt.savefig(output_path)
+    print(f"Plot saved to {output_path}")
+    
+    # Close the plot to free memory
+    plt.close()

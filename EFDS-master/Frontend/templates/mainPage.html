@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Frame 12</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+   
+  </head>
+  <body>
+    <video class="background-video" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
+    <div class="column">
+      <div class="flex-col-center-center four">
+        <div class="columnheaderlog">
+          <header class="navbar">
+            <h1 class="efds-text">EFDS</h1>
+            <ul class="rowabout">
+              <li><a href="#" class="about ui text size-texts">About Us</a></li>
+              <li><a href="mailto:capstoneheroes@gmail.com" class="about ui text size-texts">Contact Us</a></li>
+              <li class="dropdown-nav">
+                <a href="#" class="about ui text size-texts">Navigate Page ▼</a>
+                <div class="dropdown-nav-menu">
+                  <ul>
+                    <li><a href="#home">Subscription</a></li>
+                    <li><a href="#test-alert">Test Alert</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </header>
+          <div class="row">
+            <div class="columndetect" id="home">
+              <h1 class="h1 ui heading size-headingmd">Early Fire Detection System Using Satellite Imagery</h1>
+              <p class="t1 ui text size-texts">
+                AI system utilizes satellite imagery to identify and monitor fires remotely.  Subscribe To Stay Safe!
+              </p>
+              <button id="subscribeButton" class="flex-row-center-center api_test">Subscribe</button>
+            </div>
+          </div>
+          <div class="rowtutorial">
+            <div class="columntutorial" id="test-alert">
+              <div class="discoverand">
+                <h2 class="h1_one ui heading size-headings">Place a Test</h2>
+              </div>
+              <p class="aisystem ui text size-texts">   <!--css defined, don't change-->
+                Are you wondering how our platform works? Receive a test alert right now!
+              </p>
+            </div>
+          </div>
+          <div class="rowdetect_fire">
+            <nav class="navbar_search">
+              <input type="text" class="search_input" placeholder="Search for Provinces..." id="searchInput">
+              <button class="dropdown_icon">&#9660;</button>
+              <div class="dropdown_menu" id="provinceDropdown">
+                <ul>
+                    
+                    <li><a href="#">Alberta</a></li>
+                    <li><a href="#">British Columbia</a></li>
+                    <li><a href="#">Manitoba</a></li>
+                    <li><a href="#">New Brunswick</a></li>
+                    <li><a href="#">Newfoundland and Labrador</a></li>
+                    <li><a href="#">Northwest Territories</a></li>
+                    <li><a href="#">Nova Scotia</a></li>
+                    <li><a href="#">Nunavut</a></li>
+                    <li><a href="https://efds-ai.uc.r.appspot.com/set_region">Ontario</a></li>
+                    <li><a href="#">Prince Edward Island</a></li>
+                    <li><a href="#">Quebec</a></li>
+                    <li><a href="#">Saskatchewan</a></li>
+                    <li><a href="#">Yukon</a></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+          <div class="rowfaq" id="faq">
+            <div class="columnfaq">
+              <div class="discoverand">
+                <h2 class="h1_one ui heading size-headings">Frequently Asked Questions</h2>
+              </div>
+              <div class="faq-container">
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How often are the images updated?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    Our system get updated sattelite images approximately every 3 hours in Canada.
+                  </div>
+                </div>
+                <!---------------------------------------------->
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How can I receive fire alerts?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    You can subscribe to our alerts by clicking the "Subscribe" button on our homepage. Alerts will be delivered via email, and your email address will be used solely for receiving fire alerts—no promotional or sales notifications will be sent.
+                  </div>
+                </div>
+                  <!---------------------------------------------->
+                  <!---------------------------------------------->
+                <div class="faq-item">
+                  <div class="faq-question">
+                    Can I receive an alert without having a subscription?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    No. Due to the limited number of servers available for this project, you will not receive any notification about fire if your email is not in our database.  
+                  </div>
+                </div>
+                  <!----------------------------------------------> 
+                <div class="faq-item">
+                  <div class="faq-question">
+                    What regions do you cover?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    We currently monitor three Canadian provinces—Alberta, British Columbia, and Ontario—due to their high fire risk, particularly during the spring and summer seasons.
+                  </div>
+                </div>
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How accurate are the alerts?
+                    <span class="toggle-icon">+</span>
+                  </div>
+                  <div class="faq-answer">
+                    Our AI system has a 98% accuracy rate verified by satellite data and ground truth reporting.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row_two" id="footer">
+            <div>
+              <div class="rowefds">
+                <div class="columnjoinour">
+                  <div class="columnemailaddr"></div>
+                </div>
+              </div>
+              <div class="row_one">
+                <div class="columnemail">
+                  <div class="rowemail">
+                    <a href="Email" target="_blank" rel="noreferrer">
+                      <div class="footer-container">
+                        <a href="https://github.com/parmounks/EFDS.git" class="footer-item">Github</a>
+                        <a href="mailto:capstoneheroes@gmail.com" class="footer-item">Email</a>
+                        <a href="https://lassonde.yorku.ca/" class="footer-item">Lassonde</a> 
+                        <a href="https://yorku.ca" class="footer-item">York University</a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelector('.dropdown_icon').addEventListener('click', function() {
+        document.querySelector('.navbar_search').classList.toggle('active');
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('searchInput');
+        const dropdownIcon = document.querySelector('.dropdown_icon');
+        const dropdownMenu = document.getElementById('provinceDropdown');
+
+        dropdownIcon.addEventListener('click', function() {
+          dropdownMenu.classList.toggle('show');
+        });
+
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropdown_icon') && !event.target.matches('.search_input')) {
+            dropdownMenu.classList.remove('show');
+          }
+        };
+  /* This part is used for navigation on button*/
+        document.getElementById("subscribeButton").addEventListener("click", function() {
+    window.location.href = "/subscribe";
+});
+
+
+document.querySelectorAll('.dropdown-nav-menu a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const section = document.querySelector(this.getAttribute('href'));
+    section.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('.dropdown-nav-menu').classList.remove('show');
+  });
+});
+
+// FAQ Toggle Functionality
+document.querySelectorAll('.faq-question').forEach(item => {
+  item.addEventListener('click', function() {
+    const answer = this.nextElementSibling;
+    const icon = this.querySelector('.toggle-icon');
+    
+    this.classList.toggle('active');
+    answer.classList.toggle('active');
+    
+    if (this.classList.contains('active')) {
+      icon.textContent = '-';
+    } else {
+      icon.textContent = '+';
+    }
+  });
+});
+
+        searchInput.addEventListener('input', function() {
+          const searchTerm = searchInput.value.toLowerCase();
+          const items = dropdownMenu.querySelectorAll('li');
+
+          items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(searchTerm) ? '' : 'none';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
