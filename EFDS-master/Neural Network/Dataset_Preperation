@@ -1,0 +1,91 @@
+import os
+import shutil
+import random
+
+# Create a directory if it doesn't exist
+def create_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+# Collect all fire and no_fire images from subfolders
+def collect_image_files(source_dir):
+    fire_files = []
+    no_fire_files = []
+
+    for root, _, files in os.walk(source_dir):
+        for file in files:
+            if file.startswith("fire_block"):
+                fire_files.append(os.path.join(root, file))
+            elif file.startswith("no_fire_block"):
+                no_fire_files.append(os.path.join(root, file))
+
+    print(f"Total 'fire' images found: {len(fire_files)}")
+    print(f"Total 'no_fire' images found: {len(no_fire_files)}")
+    return fire_files, no_fire_files
+
+# Split files into Train, Validation, and Test sets
+def split_data(files, dest_dir, category, split_ratios=(0.7, 0.15, 0.15)):
+    random.shuffle(files)
+    num_files = len(files)
+    num_train = int(split_ratios[0] * num_files)
+    num_val = int(split_ratios[1] * num_files)
+    num_test = num_files - (num_train + num_val)
+
+    train_dir = os.path.join(dest_dir, 'Train', category)
+    val_dir = os.path.join(dest_dir, 'Validation', category)
+    test_dir = os.path.join(dest_dir, 'Test', category)
+
+    create_directory(train_dir)
+    create_directory(val_dir)
+    create_directory(test_dir)
+
+    print(f"Splitting {category}:")
+    print(f"Total: {num_files}, Train: {num_train}, Validation: {num_val}, Test: {num_test}")
+
+    # Log and copy files to train, validation, and test directories
+    def copy_files_to_split(files_subset, destination, split_name):
+        for file in files_subset:
+            destination_path = os.path.join(destination, os.path.basename(file))
+            shutil.copy(file, destination_path)
+        print(f"{split_name} {category}: Copied {len(files_subset)} images to {destination}")
+
+    copy_files_to_split(files[:num_train], train_dir, "Train")
+    copy_files_to_split(files[num_train:num_train + num_val], val_dir, "Validation")
+    copy_files_to_split(files[num_train + num_val:], test_dir, "Test")
+
+# Count files in dataset folders
+def count_files_in_dataset(base_path):
+    splits = ['Train', 'Validation', 'Test']
+    categories = ['B - Fire', 'A - No Fire']
+    total_count = 0
+
+    for split in splits:
+        for category in categories:
+            category_path = os.path.join(base_path, split, category)
+            file_count = len(os.listdir(category_path))
+            print(f"{split} - {category}: {file_count} images")
+            total_count += file_count
+
+    print(f"Total images in dataset: {total_count}")
+
+# Paths
+base_dir = r"/home/capstoneheroes/EFDS-AI/Neural Network"
+processed_folder = os.path.join(base_dir, 'Fires', 'Processed')
+dataset_dir = os.path.join(base_dir, 'Dataset')
+
+# Main Execution
+# Step 1: Collect images from subfolders
+fire_files, no_fire_files = collect_image_files(processed_folder)
+
+# Step 2: Create dataset directory structure
+create_directory(dataset_dir)
+for split in ['Train', 'Validation', 'Test']:
+    for category in ['B - Fire', 'A - No Fire']:
+        create_directory(os.path.join(dataset_dir, split, category))
+
+# Step 3: Split files into Train, Validation, and Test sets
+split_data(fire_files, dataset_dir, 'B - Fire')  # Organize fire blocks
+split_data(no_fire_files, dataset_dir, 'A - No Fire')  # Organize no-fire blocks
+
+# Step 4: Validate dataset structure
+count_files_in_dataset(dataset_dir)
