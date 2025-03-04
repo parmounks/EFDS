@@ -1,0 +1,308 @@
+:root {
+    --primary: #c0bab0fa;     
+    --secondary: #f8f9fa;           
+    --text: #2d2d2d;         
+    --surface: rgba(255, 255, 255, 0.9); 
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.7);
+  }
+.section-body {
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+align-items: center !important;
+font-weight: 700;
+padding-left: 70px;
+color: var(--text);
+margin: 1rem 0;
+padding-left: 0 !important;
+text-align: center;
+}
+.section-body2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    align-items: center !important;
+    padding-left: 85px;
+    margin-top: 50px !important;
+    color: var(--text);
+    margin: 1rem 0;
+    padding-left: 0 !important;
+    text-align: center;
+    
+    }
+
+.content-container {
+    background:#f7f4effa;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5%;
+    width: 90%;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 3.7rem 3.7rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-top: 120px;
+    height:fit-content;
+}
+
+  /* Search Input */
+.search_input {
+    flex-grow: 1;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none; 
+    background: transparent; 
+    outline: none; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #000000; 
+    
+  }
+  .search_input::placeholder {
+    color: #000000e4;
+  }
+  
+  
+  /* Dropdown Icon Button */
+  .dropdown_icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 5px;
+    color: #000000;
+    transition: transform 0.3s ease, color 0.3s ease;
+    
+  }
+  
+  .dropdown_icon:hover {
+    transform: scale(1.1);
+    color:#FA7E61;
+     
+  }
+  
+  .province-dropdown.show {
+    display: block;
+  }
+  
+  .navbar_search.active .dropdown_menu {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Dropdown Menu */
+  .dropdown_menu {
+    display: none;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border-radius: 5px;
+    margin-top: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+      max-height: 190px; 
+      overflow-y: auto; 
+      position: absolute; 
+      z-index: 1000;
+      background: var(--secondary) !important; /*Don't remove*/
+    border: 2px solid var(--primary); /* For border around*/
+    margin-top: 0.5rem;
+  }
+  
+  .dropdown_menu ul {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+  }
+  
+  .dropdown_menu ul li {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(12, 2, 2, 0.241);
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .dropdown_menu ul li a {
+    text-decoration: none;
+    color: #000000 !important;
+    font-size: 16px;
+    display: block;
+    transition: color 0.3s ease;
+  }
+  
+  .dropdown_menu ul li:hover {
+    background-color:#e086724b;
+  }
+  
+  .dropdown_menu ul li a:hover{
+    color: #390d03 !important;
+  }
+  .dropdown_menu ul li {
+     padding: 8px 16px;
+     transition: background-color 0.3s, color 0.3s;
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  }
+  
+  
+  .dropdown_menu ul {
+     padding: 0;
+     margin: 0;
+  }
+  
+  .region-dropdown {
+     position: relative;
+  }
+  
+  .region-dropdown a {
+     display: inline-block;
+     padding: 8px 16px;
+     color: #FFFFFF;
+     text-decoration: none;
+  }
+  
+  
+  .region-dropdown:hover .province-dropdown {
+     display: block;
+  }
+  
+  .province-dropdown li {
+     padding: 8px 16px;
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  
+  .province-dropdown li a {
+     text-decoration: none;
+     color: #FFFFFF;
+     font-size: 14px;
+     display: block;
+  }
+  
+  .province-dropdown li:hover {
+     background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .dropdown_menu ul > li {
+    padding: 8px 16px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dropdown_menu ul > li > a {
+    text-decoration: none;
+    color: #FFFFFF;
+    display: block;
+    font-size: 16px;
+  }
+  
+  
+  .dropdown_menu ul > li:hover > a {
+    color: #FA7E61;
+  }
+  
+  
+  /* Navigation dropdown styles */
+  .dropdown-nav {
+    position: relative;
+  }
+  
+  .dropdown-nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fb947d;
+    border-radius: 5px;
+    min-width: 180px;
+    z-index: 1000;
+  }
+  
+  .dropdown-nav:hover .dropdown-nav-menu {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .dropdown-nav-menu ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  .dropdown-nav-menu li a {
+    color: #000000 !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-shadow: none;
+    font-weight: 300px;
+    padding: 8px 20px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-nav-menu li a:hover {
+    color: #dbc93b !important;
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 20px;
+    margin-bottom: 100px;
+
+}
+
+.navbar_search {
+    position: relative;
+    display: flex;
+    align-items: center !important; 
+    gap: 10px;
+    background-color: var(--secondary);
+    border-radius: 30px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid;  
+    width: 100%;
+    max-width: 400px;
+    padding: 0.8rem 1.5rem;
+    margin-top: 23px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .content-container {
+        margin: 1rem auto;
+        padding: 1.5rem 1rem;
+    }
+    
+    .navbar_search {
+        padding: 0.6rem 1rem;
+    }
+}
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.calendar-box {
+    padding: 10px;
+    margin-top: 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    background: var(--secondary);
+    border: 2px solid;
+    color: var(--text);
+    padding: 0.8rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.calendar-box:focus {
+    outline: 2px solid #FA7E61;
+}

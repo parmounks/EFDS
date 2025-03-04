@@ -26,6 +26,10 @@ mail = Mail(app)
 @app.route('/')
 def home():
     return render_template('mainPage.html')
+    
+@app.route('/test')
+def test_page():
+    return render_template('testPage.html')
 
 @app.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():
