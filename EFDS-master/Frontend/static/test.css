@@ -46,9 +46,9 @@ text-align: center;
     width: 90%;
     max-width: 500px;
     margin: 2rem auto;
-    padding: 3.7rem 3.7rem;
+    padding: 2.5rem 2.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    margin-top: 120px;
+    margin-top: 70px;
     height:fit-content;
 }
 
@@ -267,7 +267,7 @@ text-align: center;
     border: 2px solid;  
     width: 100%;
     max-width: 400px;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.3rem;
     margin-top: 23px;
     transition: all 0.3s ease;
 }
@@ -286,6 +286,7 @@ text-align: center;
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    border-radius: 30px;
     align-items: center;
 }
 
@@ -306,3 +307,22 @@ text-align: center;
 .calendar-box:focus {
     outline: 2px solid #FA7E61;
 }
+
+.subscribe-button {
+    background-color: #FA7E61;
+    align-items: center;
+    color: black;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-top: 50px;
+    margin-left: 169px;
+  }
+  
+  .subscribe-button:hover {
+    background-color: #13d647;
+  }

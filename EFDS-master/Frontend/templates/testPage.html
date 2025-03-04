@@ -8,59 +8,91 @@
 </head>
 <body>
     <video class="background-video" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
-  <section class="subscribe-section">
-    <div class="content-container">
-      <div class="subscribe-content">
-        <h3 class="section-body">Select a Province</h3>
-        <div class="search-container">  
-          <nav class="navbar_search">
-            <input type="text" class="search_input" placeholder="Search for Provinces..." id="searchInput">
-            <button class="dropdown_icon">&#9660;</button>
-            <div class="dropdown_menu" id="provinceDropdown">
-              <ul>
-                <li><a href="#">Alberta</a></li>
-                <li><a href="#">British Columbia</a></li>
-                <li><a href="#">Manitoba</a></li>
-                <li><a href="#">New Brunswick</a></li>
-                <li><a href="#">Newfoundland and Labrador</a></li>
-                <li><a href="#">Northwest Territories</a></li>
-                <li><a href="#">Nova Scotia</a></li>
-                <li><a href="#">Nunavut</a></li>
-                <li><a href="#">Ontario</a></li>
-                <li><a href="#">Prince Edward Island</a></li>
-                <li><a href="#">Quebec</a></li>
-                <li><a href="#">Saskatchewan</a></li>
-                <li><a href="#">Yukon</a></li>
-              </ul>
+    <section class="subscribe-section">
+        <div class="content-container">
+            <div class="subscribe-content">
+                <h3 class="section-body">Select a Province</h3>
+                <div class="search-container">  
+                    <nav class="navbar_search">
+                        <input type="text" class="search_input" placeholder="Search for Provinces..." id="searchInput" readonly>
+                        <button type="button" class="dropdown_icon" onclick="toggleDropdown()">&#9660;</button>
+                        <div class="dropdown_menu" id="provinceDropdown">
+                            <ul>
+                                <li onclick="selectProvince('Alberta')">Alberta</li>
+                                <li onclick="selectProvince('British Columbia')">British Columbia</li>
+                                <li onclick="selectProvince('Manitoba')">Manitoba</li>
+                                <li onclick="selectProvince('New Brunswick')">New Brunswick</li>
+                                <li onclick="selectProvince('Newfoundland and Labrador')">Newfoundland and Labrador</li>
+                                <li onclick="selectProvince('Northwest Territories')">Northwest Territories</li>
+                                <li onclick="selectProvince('Nova Scotia')">Nova Scotia</li>
+                                <li onclick="selectProvince('Nunavut')">Nunavut</li>
+                                <li onclick="selectProvince('Ontario')">Ontario</li>
+                                <li onclick="selectProvince('Prince Edward Island')">Prince Edward Island</li>
+                                <li onclick="selectProvince('Quebec')">Quebec</li>
+                                <li onclick="selectProvince('Saskatchewan')">Saskatchewan</li>
+                                <li onclick="selectProvince('Yukon')">Yukon</li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <input type="hidden" id="selectedProvince">
+                </div>
+                
+                <h3 class="section-body2">Select a Date</h3>
+                <div class="calendar-container">
+                    <input type="date" class="calendar-box" id="selectedDate">
+                </div>
+
+                <button type="submit" class="subscribe-button" onclick="submitSelection()">
+                    <span class="subscribe-text">Submit Selection</span>
+                </button>
             </div>
-          </nav>
         </div>
-        <h3 class="section-body2">Select a Date</h3>
-        <div class="calendar-container">
-          <input type="date" class="calendar-box">
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <script>
-  document.querySelector('.dropdown_icon').addEventListener('click', function() {
-    document.querySelector('.navbar_search').classList.toggle('active');
-  });
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("provinceDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('searchInput');
-    const dropdownMenu = document.getElementById('provinceDropdown');
+        function selectProvince(province) {
+            document.getElementById('searchInput').value = province;
+            document.getElementById('selectedProvince').value = province;
+            document.getElementById('provinceDropdown').style.display = "none"; // Hide dropdown after selection
+        }
 
-    searchInput.addEventListener('input', function() {
-      const searchTerm = searchInput.value.toLowerCase();
-      const items = dropdownMenu.querySelectorAll('li');
-      items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(searchTerm) ? '' : 'none';
-      });
-    });
-  });
-  </script>
+        function submitSelection() {
+            const province = document.getElementById('selectedProvince').value;
+            const date = document.getElementById('selectedDate').value;
+
+            if (!province || !date) {
+                alert("Please select both a province and a date.");
+                return;
+            }
+
+            fetch('/save_selection', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ province: province, date: date })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Close dropdown if user clicks outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('provinceDropdown');
+            const searchContainer = document.querySelector('.search-container');
+
+            if (!searchContainer.contains(event.target)) {
+                dropdown.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
