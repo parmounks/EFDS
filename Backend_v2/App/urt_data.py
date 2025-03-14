@@ -138,8 +138,17 @@ def send_fire_alert_email(email, fire_lat, fire_lon, acq_date, acq_time):
             logging.error(f"❌ Failed to send fire alert email to {email}: {str(e)}")
 
 # Function to generate an interactive fire map
+import os  # Add this at the top of the script
+
 def generate_fire_map(df):
     logging.info("Generating interactive fire map...")
+
+    # Ensure templates directory exists
+    templates_dir = "templates"
+    if not os.path.exists(templates_dir):
+        os.makedirs(templates_dir)  # ✅ Create the missing directory
+        logging.info("✅ Created 'templates' directory.")
+
     fire_map = folium.Map(location=[60, -95], zoom_start=4)
 
     for _, row in df.iterrows():
@@ -148,20 +157,21 @@ def generate_fire_map(df):
             folium.CircleMarker(
                 location=[lat, lon],
                 radius=5,
-                color="red" if row.get("alert", 0) == 1 else "orange",
+                color="red",
                 fill=True,
-                fill_color="red" if row.get("alert", 0) == 1 else "orange",
                 fill_opacity=0.6,
-                popup=f"Brightness: {row['bright_ti4']}\nConfidence: {row['confidence']}\nAcquired: {row.get('acq_date', 'N/A')} {row.get('acq_time', 'N/A')}",
-                tooltip=f"🔥 Fire at ({lat}, {lon})"
+                popup=f"🔥 Fire at ({lat}, {lon})\nAcquired: {row.get('acq_date', 'N/A')} {row.get('acq_time', 'N/A')}"
             ).add_to(fire_map)
         except ValueError:
-            logging.warning(f"Skipping invalid fire data: {row}")
+            logging.warning(f"⚠️ Skipping invalid fire data: {row}")
 
-    fire_map.save("templates/fire_map.html")
-    logging.info("Fire map updated successfully.")
+    # Save the fire map
+    map_path = os.path.join(templates_dir, "fire_map.html")
+    fire_map.save(map_path)
+    logging.info("✅ Fire map updated successfully.")
 
-@app.route("/api/fire-data", methods=["GET"])
+
+@app.route("/fire-data", methods=["GET"])
 def get_fire_data():
     return jsonify(fire_data)
 
