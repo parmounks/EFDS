@@ -171,4 +171,4 @@ threading.Thread(target=start_scheduler, daemon=True).start()
 # Run Flask App
 if __name__ == "__main__":
     fetch_fire_data()
-    app.run(host="0.0.0.0", port=6000, debug=True)
+    app.run(host="0.0.0.0", port=6000, debug=True, use_reloader=False)
