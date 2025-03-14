@@ -10,21 +10,30 @@ import schedule
 import threading
 import time
 import io
+import os
+from datetime import datetime, timedelta
 
 # Initialize Flask App
 app = Flask(__name__, template_folder='templates')
 
-# Logging Configuration
-logging.basicConfig(level=logging.INFO)
+# Logging Configuration (Suppress Terminal Logs)
+logging.basicConfig(
+    level=logging.INFO, 
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("fire_detection.log"),  # Save logs to a file
+        # logging.NullHandler()  # Suppress logs in the terminal
+    ]
+)
 
-# NASA FIRMS API URL (VIIRS S-NPP Near Real-Time Data for all of Canada)
+# NASA FIRMS API URL
 FIRMS_URL = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/e710ccc1baf9bf0673a8f3f40192e73f/VIIRS_SNPP_NRT/-141,41,-52,83/2"
 
-# In-memory storage for fire data
 fire_data = []
 ALERT_RADIUS_KM = 15  # 15 km alert radius
+last_alert_time = {}  # Dictionary to track last alert time per email
 
-# Email configuration
+# Email Configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -34,7 +43,7 @@ app.config['MAIL_DEFAULT_SENDER'] = 'yorkefds@gmail.com'
 
 mail = Mail(app)
 
-# Haversine function to calculate the distance between two lat/lon points
+# Haversine function to calculate distance
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371  
     lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
@@ -44,110 +53,49 @@ def haversine(lat1, lon1, lat2, lon2):
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
     return R * c  
 
-# Function to fetch user locations from database
-def fetch_user_locations():
+# Connect to SQLite database
+def get_db_connection():
     conn = sqlite3.connect("/home/capstoneheroes/EFDS-AI/EFDS-master/Frontend/subscribe.db")
-    cursor = conn.cursor()
+    conn.row_factory = sqlite3.Row
+    return conn
 
+# Fetch user locations
+def fetch_user_locations():
+    conn = get_db_connection()
+    cursor = conn.cursor()
     cursor.execute("SELECT email, latitude, longitude FROM subscribers")
     user_locations = [(row[0], float(row[1]), float(row[2])) for row in cursor.fetchall()]
-
     conn.close()
-    logging.info(f"🔍 User Locations Fetched: {user_locations}")
     return user_locations  
 
-# Function to check which users should receive fire alerts
-def check_fire_alert(fire_lat, fire_lon, user_locations):
-    alert_users = []
-    for email, user_lat, user_lon in user_locations:
-        distance = haversine(user_lat, user_lon, fire_lat, fire_lon)
-        if distance <= ALERT_RADIUS_KM:
-            alert_users.append((email, fire_lat, fire_lon))
-    return alert_users  
-
-# Function to fetch and process NASA FIRMS fire data
+# Fetch and process fire data
 def fetch_fire_data():
     global fire_data
-    logging.info("Fetching latest VIIRS fire data from NASA FIRMS for all of Canada...")
-
+    logging.info("Fetching latest fire data...")
     try:
         response = requests.get(FIRMS_URL)
-        response.raise_for_status()  
-
-        csv_data = response.content.decode('utf-8')
-        df = pd.read_csv(io.StringIO(csv_data))
-
-        logging.info(f"Total Fire Records: {len(df)}")
-
+        response.raise_for_status()
+        df = pd.read_csv(io.StringIO(response.content.decode('utf-8')))
         if df.empty:
-            logging.warning("No fire data found! Check the API or parameters.")
+            logging.warning("No fire data found!")
             return  
-
-        required_columns = {"latitude", "longitude", "bright_ti4", "confidence"}
-        if not required_columns.issubset(df.columns):
-            logging.error(f"Error: Missing required columns {required_columns - set(df.columns)}")
-            return
-
-        confidence_mapping = {"l": 30, "n": 60, "h": 90}
-        df["confidence"] = df["confidence"].map(confidence_mapping).fillna(50)
-
-        user_locations = fetch_user_locations()
-        all_alert_users = []
-
-        for _, row in df.iterrows():
-            fire_lat, fire_lon = float(row["latitude"]), float(row["longitude"])
-            alert_users = check_fire_alert(fire_lat, fire_lon, user_locations)
-
-            for email, lat, lon in alert_users:
-                all_alert_users.append((email, lat, lon, row["acq_date"], row["acq_time"]))
-
+        df["confidence"] = df["confidence"].map({"l": 30, "n": 60, "h": 90}).fillna(50)
         fire_data = df.to_dict(orient="records")
-        logging.info(f"ALERTS: {len(all_alert_users)} fires detected near user locations!")
-
-        for email, fire_lat, fire_lon, acq_date, acq_time in all_alert_users:
-            send_fire_alert_email(email, fire_lat, fire_lon, acq_date, acq_time)
-
-        generate_fire_map(df)
-
+        
+        generate_fire_map(df)  # Generate the fire map
+        check_and_send_alerts(df)
     except requests.exceptions.RequestException as e:
-        logging.error(f"Error fetching NASA FIRMS data: {e}")
+        logging.error(f"Error fetching fire data: {e}")
 
-def send_fire_alert_email(email, fire_lat, fire_lon, acq_date, acq_time):
-    """Send an email alert when a fire is detected near a subscriber."""
-    with app.app_context():  # Ensures Flask-Mail works correctly
-        try:
-            msg = Message(
-                "🔥 Fire Alert: Wildfire Detected Near Your Location",
-                sender=app.config['MAIL_DEFAULT_SENDER'],
-                recipients=[email]
-            )
-
-            msg.body = (f"Hello,\n\n"
-                        f"A wildfire has been detected near your subscribed location.\n\n"
-                        f"🔥 Fire Details:\n"
-                        f"- **Location**: Latitude {fire_lat}, Longitude {fire_lon}\n"
-                        f"- **Detected On**: {acq_date} at {acq_time}\n\n"
-                        f"Please take necessary precautions and stay updated with local authorities.\n\n"
-                        f"Stay safe,\n"
-                        f"The EFDS Team")
-
-            mail.send(msg)
-            logging.info(f"✅ Fire alert email sent to {email}")
-
-        except Exception as e:
-            logging.error(f"❌ Failed to send fire alert email to {email}: {str(e)}")
-
-# Function to generate an interactive fire map
-import os  # Add this at the top of the script
-
+# Generate Fire Map
 def generate_fire_map(df):
     logging.info("Generating interactive fire map...")
 
     # Ensure templates directory exists
     templates_dir = "templates"
     if not os.path.exists(templates_dir):
-        os.makedirs(templates_dir)  # ✅ Create the missing directory
-        logging.info("✅ Created 'templates' directory.")
+        os.makedirs(templates_dir)  # Create the missing directory
+        logging.info("Created 'templates' directory.")
 
     fire_map = folium.Map(location=[60, -95], zoom_start=4)
 
@@ -168,25 +116,59 @@ def generate_fire_map(df):
     # Save the fire map
     map_path = os.path.join(templates_dir, "fire_map.html")
     fire_map.save(map_path)
-    logging.info("✅ Fire map updated successfully.")
+    logging.info("Fire map updated successfully.")
 
+# Check for fires near users and send alert
+def check_and_send_alerts(df):
+    global last_alert_time
+    user_locations = fetch_user_locations()
+    fire_locations = [(row["latitude"], row["longitude"]) for row in df.to_dict(orient="records")]
+    now = datetime.now()
 
+    for email, user_lat, user_lon in user_locations:
+        if email in last_alert_time and now - last_alert_time[email] < timedelta(hours=24):
+            continue  # Skip if email was sent within last 24 hours
+        
+        nearby_fires = [(lat, lon) for lat, lon in fire_locations if haversine(user_lat, user_lon, lat, lon) <= ALERT_RADIUS_KM]
+        
+        if nearby_fires:
+            send_email_alert(email, nearby_fires)
+            last_alert_time[email] = now
+
+# Send email alert
+def send_email_alert(email, fire_locations):
+    fire_list = "\n".join([f"🔥 Fire detected at ({lat}, {lon})" for lat, lon in fire_locations])
+    subject = "⚠️Alert: Fire(s) Near Your Location"
+    body = f"Dear user,\n\nThe following fires have been detected within {ALERT_RADIUS_KM} km of your location:\n\n{fire_list}\n\nStay safe,\nEFDS Team"
+    with app.app_context():
+        try:
+            msg = Message(subject, recipients=[email], body=body)
+            mail.send(msg)
+            logging.info(f"Alert sent to {email}")
+        except Exception as e:
+            logging.error(f"Failed to send alert to {email}: {e}")
+
+# API Route to Get Fire Data
 @app.route("/fire-data", methods=["GET"])
 def get_fire_data():
     return jsonify(fire_data)
 
-@app.route("/", methods=["GET"])
+# Route to Display Fire Map
+@app.route("/fire-map", methods=["GET"])
 def fire_map():
     return render_template("fire_map.html")
 
+# Background scheduler
 def start_scheduler():
-    schedule.every(10).minutes.do(fetch_fire_data)
+    schedule.every(2).minutes.do(fetch_fire_data)
     while True:
         schedule.run_pending()
         time.sleep(60)
 
+# Start background thread
 threading.Thread(target=start_scheduler, daemon=True).start()
 
+# Run Flask App
 if __name__ == "__main__":
     fetch_fire_data()
     app.run(host="0.0.0.0", port=6000, debug=True)
