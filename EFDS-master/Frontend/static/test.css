@@ -326,3 +326,14 @@ text-align: center;
   .subscribe-button:hover {
     background-color: #13d647;
   }
+
+  .result-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    text-align: center;
+  }

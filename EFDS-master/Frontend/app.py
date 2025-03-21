@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify, render_template, url_for
 from flask_mail import Mail, Message
 import sqlite3
+import requests
 import os
+
 
 app = Flask(__name__, template_folder='templates')
 
@@ -32,7 +34,17 @@ def home():
 @app.route('/test')
 def test_page():
     """Render the test page where the user selects a province and date."""
-    return render_template('testPage.html')
+    return render_template('testpage2.html')
+
+@app.route('/predict_fire', methods=['POST'])
+def proxy_predict():
+    data = request.json
+    try:
+        response = requests.post("http://127.0.0.1:8080/", json=data)
+        return jsonify(response.json()), response.status_code
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():

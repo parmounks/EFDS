@@ -80,8 +80,29 @@
             .then(response => response.json())
             .then(data => {
                 alert(data.message);
+                // 🔁 Then, call your ML backend (localhost:8080) for fire prediction
+                return fetch(`http://127.0.0.1:8080/?_=${Date.now()}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ province: province, date: date })
+                });
             })
-            .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.prediction) {
+                    const prediction = data.prediction[0];  // assuming shape [[0.02, 0.98]]
+                    const fireProbability = prediction[0];
+                    alert(`Fire Probability: ${(fireProbability * 100).toFixed(2)}%`);
+                } else {
+                    alert(data.message || 'Prediction unavailable');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred. See console for details.");
+            });
         }
 
         // Close dropdown if user clicks outside

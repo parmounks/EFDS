@@ -6,11 +6,21 @@ from PIL import Image
 import requests
 from io import BytesIO
 import os
+from flask_cors import CORS
+import logging
+
+logging.basicConfig(filename='model_detect.log', level=logging.DEBUG)
 
 # Disable GPU if CUDA is unavailable
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 app = Flask(__name__)
+CORS(app)
+
+# Load the trained model once
+MODEL_PATH = "/home/capstoneheroes/EFDS-AI/Backend_v2/Model/fire_detection_model.h5"
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model file not found: {MODEL_PATH}")
 
 # Load the trained model once
 MODEL_PATH = "/home/capstoneheroes/EFDS-AI/Backend_v2/Model/fire_detection_model.h5"
@@ -73,12 +83,20 @@ def home():
 # API Endpoint for Fire Prediction
 @app.route("/", methods=["POST"])
 def predict():
+    logging.debug("Received POST request")
+    
     data = request.json
     province = data.get("province")
     date = data.get("date")
 
     if not province or not date:
         return jsonify({"error": "Province and date are required."}), 400
+    logging.debug(f"Province: {province}, Date: {date}")
+
+    if not province or not date:
+        return jsonify({"error": "Province and date are required."}), 400
+        logging.debug("Province or date is missing")
+        
     province = province.strip().upper()
     img_array, error = fetch_nasa_image(province, date)
     if error:
@@ -88,6 +106,7 @@ def predict():
     prediction = model.predict(img_array)
 
     return jsonify({"province": province, "date": date, "prediction": prediction.tolist()})
+    logging.debug("Prediction complete")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, threaded=True)

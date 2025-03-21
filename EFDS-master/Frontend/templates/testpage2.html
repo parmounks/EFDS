@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test System</title> 
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test.css') }}">
+</head>
+<body>
+  <video class="background-video" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
+  <section class="subscribe-section">
+    <div class="content-container">
+      <div class="subscribe-content">
+        <h3 class="section-body">Select a Province</h3>
+        <div class="search-container">  
+          <nav class="navbar_search">
+            <input type="text" class="search_input" placeholder="Search for Provinces..." id="searchInput" readonly>
+            <button type="button" class="dropdown_icon" onclick="toggleDropdown()">&#9660;</button>
+            <div class="dropdown_menu" id="provinceDropdown">
+              <ul>
+                <li onclick="selectProvince('Alberta')">Alberta</li>
+                <li onclick="selectProvince('British Columbia')">British Columbia</li>
+                <li onclick="selectProvince('Manitoba')">Manitoba</li>
+                <li onclick="selectProvince('New Brunswick')">New Brunswick</li>
+                <li onclick="selectProvince('Newfoundland and Labrador')">Newfoundland and Labrador</li>
+                <li onclick="selectProvince('Northwest Territories')">Northwest Territories</li>
+                <li onclick="selectProvince('Nova Scotia')">Nova Scotia</li>
+                <li onclick="selectProvince('Nunavut')">Nunavut</li>
+                <li onclick="selectProvince('Ontario')">Ontario</li>
+                <li onclick="selectProvince('Prince Edward Island')">Prince Edward Island</li>
+                <li onclick="selectProvince('Quebec')">Quebec</li>
+                <li onclick="selectProvince('Saskatchewan')">Saskatchewan</li>
+                <li onclick="selectProvince('Yukon')">Yukon</li>
+              </ul>
+            </div>
+          </nav>
+          <input type="hidden" id="selectedProvince">
+        </div>
+                
+        <h3 class="section-body2">Select a Date</h3>
+        <div class="calendar-container">
+          <input type="date" class="calendar-box" id="selectedDate">
+        </div>
+
+        <button type="submit" class="subscribe-button" onclick="submitSelection()">
+          <span class="subscribe-text">Submit Selection</span>
+        </button>
+
+        <!-- 📦 Result box for prediction + error -->
+        <div id="resultBox" class="result-box"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById("provinceDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    function selectProvince(province) {
+      document.getElementById('searchInput').value = province;
+      document.getElementById('selectedProvince').value = province;
+      document.getElementById('provinceDropdown').style.display = "none";
+    }
+
+    function submitSelection() {
+    const province = document.getElementById('selectedProvince').value;
+    const date = document.getElementById('selectedDate').value;
+    const resultBox = document.getElementById('resultBox');
+    resultBox.innerHTML = "";  // Clear previous result
+
+    if (!province || !date) {
+        console.warn("User did not select both a province and date.");
+        resultBox.innerHTML = "<p style='color: red;'>❌ Please select both a province and a date.</p>";
+        return;
+    }
+
+    console.log("Submitting selection to /save_selection:", { province, date });
+
+    fetch('/save_selection', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ province: province, date: date })
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error("Error saving selection:", response.status, response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Save selection response:", data);
+        resultBox.innerHTML = `<p>${data.message}</p>`;
+
+        console.log("Sending data to ML prediction backend...");
+        return fetch('/predict_fire',
+         {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ province: province, date: date })
+        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error("Prediction backend responded with error:", response.status, response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Prediction response:", data);
+        if (data.prediction) {
+            const prediction = data.prediction[0];
+            const fireProbability = prediction[0];
+            resultBox.innerHTML += `<p>🔥 <strong>Fire Probability:</strong> ${(fireProbability * 100).toFixed(2)}%</p>`;
+        } else {
+            console.warn("No prediction returned or error in backend response.");
+            resultBox.innerHTML += `<p style='color: orange;'>⚠️ ${data.message || 'Prediction unavailable.'}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error("Unhandled error in submission or prediction flow:", error);
+        resultBox.innerHTML = "<p style='color: red;'>🚨 An error occurred. Check console for details.</p>";
+    });
+}
+
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('provinceDropdown');
+      const searchContainer = document.querySelector('.search-container');
+      if (!searchContainer.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
