@@ -1,7 +1,7 @@
 import sqlite3  
 import logging
 from math import radians, cos, sin, sqrt, atan2
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_mail import Mail, Message
 import requests
 import pandas as pd
@@ -12,6 +12,9 @@ import time
 import io
 import os
 from datetime import datetime, timedelta
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 # Initialize Flask App
 app = Flask(__name__, template_folder='templates')
@@ -22,7 +25,7 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
         logging.FileHandler("fire_detection.log"),  # Save logs to a file
-        # logging.NullHandler()  # Suppress logs in the terminal
+        logging.NullHandler()  # Suppress logs in the terminal
     ]
 )
 
@@ -87,8 +90,10 @@ def fetch_fire_data():
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching fire data: {e}")
 
-# Generate Fire Map
-def generate_fire_map(df):
+
+
+# Generate Fire Map with Dark Mode Option
+def generate_fire_map(df, mode='light'):
     logging.info("Generating interactive fire map...")
 
     # Ensure templates directory exists
@@ -97,8 +102,25 @@ def generate_fire_map(df):
         os.makedirs(templates_dir)  # Create the missing directory
         logging.info("Created 'templates' directory.")
 
-    fire_map = folium.Map(location=[60, -95], zoom_start=4)
+    # Set the tile layer based on mode
+    fire_map = folium.Map(location=[60, -95], zoom_start=4, tiles=None)
 
+    if mode == 'dark':
+        # Use CartoDB Dark Matter tiles for dark mode
+        folium.TileLayer(
+            tiles="CartoDB dark_matter",
+            attr="CartoDB",
+            name="Dark Mode"
+        ).add_to(fire_map)
+    else:
+        # Use default tiles for light mode
+        folium.TileLayer(
+            tiles="OpenStreetMap",  # You can use any other tile style here
+            attr="OpenStreetMap",
+            name="Light Mode"
+        ).add_to(fire_map)
+
+    # Add fire locations as CircleMarkers
     for _, row in df.iterrows():
         try:
             lat, lon = float(row["latitude"]), float(row["longitude"])
@@ -108,15 +130,16 @@ def generate_fire_map(df):
                 color="red",
                 fill=True,
                 fill_opacity=0.6,
-                popup=f"🔥 Fire at ({lat}, {lon})\nAcquired: {row.get('acq_date', 'N/A')} {row.get('acq_time', 'N/A')}"
+                popup=f"Fire at ({lat}, {lon})\nAcquired: {row.get('acq_date', 'N/A')} {row.get('acq_time', 'N/A')}"
             ).add_to(fire_map)
         except ValueError:
-            logging.warning(f"⚠️ Skipping invalid fire data: {row}")
+            logging.warning(f"Skipping invalid fire data: {row}")
 
     # Save the fire map
     map_path = os.path.join(templates_dir, "fire_map.html")
     fire_map.save(map_path)
     logging.info("Fire map updated successfully.")
+
 
 # Check for fires near users and send alert
 def check_and_send_alerts(df):
@@ -137,8 +160,8 @@ def check_and_send_alerts(df):
 
 # Send email alert
 def send_email_alert(email, fire_locations):
-    fire_list = "\n".join([f"🔥 Fire detected at ({lat}, {lon})" for lat, lon in fire_locations])
-    subject = "⚠️Alert: Fire(s) Near Your Location"
+    fire_list = "\n".join([f"Fire detected at ({lat}, {lon})" for lat, lon in fire_locations])
+    subject = "Alert: Fire(s) Near Your Location"
     body = f"Dear user,\n\nThe following fires have been detected within {ALERT_RADIUS_KM} km of your location:\n\n{fire_list}\n\nStay safe,\nEFDS Team"
     with app.app_context():
         try:
@@ -153,10 +176,15 @@ def send_email_alert(email, fire_locations):
 def get_fire_data():
     return jsonify(fire_data)
 
-# Route to Display Fire Map
+# Route to Display Fire Map with Dark Mode Toggle
 @app.route("/fire-map", methods=["GET"])
 def fire_map():
+    mode = request.args.get('mode', 'light')  # Default to 'light' mode if no mode is specified
+    # Fetch the latest fire data from the global 'fire_data' variable
+    df = pd.DataFrame(fire_data)
+    generate_fire_map(df, mode)
     return render_template("fire_map.html")
+
 
 # Background scheduler
 def start_scheduler():
