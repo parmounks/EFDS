@@ -1,0 +1,7 @@
+Flask
+Flask-Mail
+requests
+pandas
+folium
+schedule
+psycopg2-binary
