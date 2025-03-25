@@ -12,6 +12,7 @@
   </head>
   <body>
     <video class="background-video" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
+   
     <div class="column">
       <div class="flex-col-center-center four">
         <div class="columnheaderlog">
@@ -149,61 +150,82 @@
     </div>
 
     <script>
-
-document.getElementById("testSystemButton").addEventListener("click", function() {
-    window.location.href = "/test";
-});
-        window.onclick = function(event) {
-          if (!event.target.matches('.dropdown_icon') && !event.target.matches('.search_input')) {
-            dropdownMenu.classList.remove('show');
-          }
-        };
-  /* This part is used for navigation on button*/
-        document.getElementById("subscribeButton").addEventListener("click", function() {
-    window.location.href = "/subscribe";
-});
-
-document.getElementById("aboutUsButton").addEventListener("click", function() {
-    window.location.href = "/about";
-});
-
-
-document.querySelectorAll('.dropdown-nav-menu a').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const section = document.querySelector(this.getAttribute('href'));
-    section.scrollIntoView({ behavior: 'smooth' });
-    document.querySelector('.dropdown-nav-menu').classList.remove('show');
-  });
-});
-
-// FAQ Toggle Functionality
-document.querySelectorAll('.faq-question').forEach(item => {
-  item.addEventListener('click', function() {
-    const answer = this.nextElementSibling;
-    const icon = this.querySelector('.toggle-icon');
-    
-    this.classList.toggle('active');
-    answer.classList.toggle('active');
-    
-    if (this.classList.contains('active')) {
-      icon.textContent = '-';
-    } else {
-      icon.textContent = '+';
-    }
-  });
-});
-
-        searchInput.addEventListener('input', function() {
-          const searchTerm = searchInput.value.toLowerCase();
-          const items = dropdownMenu.querySelectorAll('li');
-
-          items.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(searchTerm) ? '' : 'none';
+      document.addEventListener("DOMContentLoaded", function () {
+        const testSystemBtn = document.getElementById("testSystemButton");
+        if (testSystemBtn) {
+          testSystemBtn.addEventListener("click", function () {
+            window.location.href = "/test";
+          });
+        }
+      
+        const subscribeBtn = document.getElementById("subscribeButton");
+        if (subscribeBtn) {
+          subscribeBtn.addEventListener("click", function () {
+            window.location.href = "/subscribe";
+          });
+        }
+      
+        const aboutBtn = document.getElementById("aboutUsButton");
+        if (aboutBtn) {
+          aboutBtn.addEventListener("click", function () {
+            window.location.href = "/about";
+          });
+        }
+      
+        // Dropdown navigation scroll
+        document.querySelectorAll(".dropdown-nav-menu a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const section = document.querySelector(this.getAttribute("href"));
+            section.scrollIntoView({ behavior: "smooth" });
+            document.querySelector(".dropdown-nav-menu").classList.remove("show");
           });
         });
-    </script>
+      
+        // FAQ Toggle Functionality
+        document.querySelectorAll(".faq-question").forEach((item) => {
+          item.addEventListener("click", function () {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector(".toggle-icon");
+      
+            this.classList.toggle("active");
+            answer.classList.toggle("active");
+      
+            if (this.classList.contains("active")) {
+              icon.textContent = "-";
+            } else {
+              icon.textContent = "+";
+            }
+          });
+        });
+      
+        // Optional: Safe searchInput logic (if used)
+        const searchInput = document.querySelector(".search_input");
+        const dropdownMenu = document.querySelector(".dropdown_menu");
+      
+        if (searchInput && dropdownMenu) {
+          searchInput.addEventListener("input", function () {
+            const searchTerm = searchInput.value.toLowerCase();
+            const items = dropdownMenu.querySelectorAll("li");
+      
+            items.forEach((item) => {
+              const text = item.textContent.toLowerCase();
+              item.style.display = text.includes(searchTerm) ? "" : "none";
+            });
+          });
+      
+          window.addEventListener("click", function (event) {
+            if (
+              !event.target.matches(".dropdown_icon") &&
+              !event.target.matches(".search_input")
+            ) {
+              dropdownMenu.classList.remove("show");
+            }
+          });
+        }
+      });
+      </script>
+      
 
   </body>
 </html>
