@@ -11,8 +11,11 @@
    
   </head>
   <body>
-    <video class="background-video" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
-   
+    <video class="background-video" autoplay muted loop>
+      <source src="https://storage.googleapis.com/efds-video-storage/vid2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+        
     <div class="column">
       <div class="flex-col-center-center four">
         <div class="columnheaderlog">
@@ -60,7 +63,7 @@
               <h3 class="mapstyle">Current Fires</h3>
               <div class="mapcontainer">
                 
-                 <iframe id="fireMap" src="http://localhost:6000/fire-map?mode=dark" style="height: 500px; width: 100%; border: none;"></iframe> 
+                 <iframe id="fireMap" src="https://efds-backend-71702513350.us-central1.run.app/fire-map?mode=dark" style="height: 500px; width: 100%; border: none;"></iframe> 
                   </div>
                
 

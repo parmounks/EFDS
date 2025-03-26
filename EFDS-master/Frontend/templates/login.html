@@ -7,7 +7,10 @@
 </head>
 
 <body>
-  <video class="background" src="{{ url_for('static', filename='vid2.mp4') }}" muted loop autoplay></video>
+  <video class="background-video" autoplay muted loop>
+    <source src="https://storage.googleapis.com/efds-video-storage/vid2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
   <section class="subscribe-section">
     <div class="subscribe-content">
       <h1 class="section-title">Welcome!</h1>

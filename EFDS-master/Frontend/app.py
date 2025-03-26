@@ -1,24 +1,22 @@
 from flask import Flask, request, jsonify, render_template, url_for
 from flask_mail import Mail, Message
-import sqlite3
+import psycopg2
 import requests
 import os
 
-
-
-
 app = Flask(__name__, template_folder='templates')
 
-# Database configuration
-DATABASE = 'subscribe.db'
-
+# --- Database connection using PostgreSQL ---
 def get_db_connection():
-    """Establish a connection to the database."""
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return psycopg2.connect(
+        dbname="efds_main",
+        user="postgres",
+        password=os.environ.get("DB_PASSWORD"),
+        host="34.121.207.94",  # Replace with your Cloud SQL public IP if needed
+        port="5432"
+    )
 
-# Email configuration
+# --- Email configuration ---
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -30,32 +28,27 @@ mail = Mail(app)
 
 @app.route('/')
 def home():
-    """Render the main page."""
     return render_template('mainPage.html')
-
 
 @app.route('/about')
 def about():
     return render_template('AboutUs.html')
-    
+
 @app.route('/test')
 def test_page():
-    """Render the test page where the user selects a province and date."""
     return render_template('testpage2.html')
 
 @app.route('/predict_fire', methods=['POST'])
 def proxy_predict():
     data = request.json
     try:
-        response = requests.post("http://127.0.0.1:8080/", json=data)
+        response = requests.post("https://efds-model-71702513350.us-central1.run.app/", json=data)  # 🔁 Update this to match your model endpoint
         return jsonify(response.json()), response.status_code
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @app.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():
-    """Handle user subscriptions, including email notifications."""
     if request.method == 'GET':
         return render_template('login.html')
 
@@ -65,40 +58,32 @@ def subscribe():
         latitude = data.get('latitude')
         longitude = data.get('longitude')
 
-        if not email:
-            return jsonify({"message": "Email is required"}), 400
-
-        if not latitude or not longitude:
-            return jsonify({"message": "Location data is required"}), 400
+        if not email or not latitude or not longitude:
+            return jsonify({"message": "Email and location are required"}), 400
 
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO subscribers (email, latitude, longitude) VALUES (?, ?, ?)', 
-                       (email, latitude, longitude))
+        cursor.execute(
+            'INSERT INTO subscribers (email, latitude, longitude) VALUES (%s, %s, %s)',
+            (email, latitude, longitude)
+        )
         conn.commit()
         conn.close()
 
-        # Send welcome email
         try:
             msg = Message(
                 "Welcome to Our Platform!",
                 sender=app.config['MAIL_DEFAULT_SENDER'],
                 recipients=[email]
             )
-
-            msg.body = (f"Hello,\n\n"
-                        f"Thank you for subscribing to our Early Fire Detection System (EFDS) platform! "
-                        f"We're excited to have you on board.\n\n"
-                        f"You have subscribed for alerts in the following location: Latitude: {latitude}, Longitude: {longitude}\n\n"
-                        f"Stay safe, and thank you for trusting EFDS to be part of your safety network.\n\n"
-                        f"Best regards,\n"
-                        f"The EFDS Team")
-
+            msg.body = (
+                f"Hello,\n\n"
+                f"Thank you for subscribing to EFDS!\n\n"
+                f"You have subscribed for alerts in: Latitude: {latitude}, Longitude: {longitude}\n\n"
+                f"Stay safe,\nThe EFDS Team"
+            )
             mail.send(msg)
-            print("Email sent successfully!")  # Debugging message
-
         except Exception as e:
-            print(f"Failed to send email: {str(e)}")  
             return jsonify({"message": f"Subscription successful, but email failed: {str(e)}"}), 201
 
         return jsonify({
@@ -107,12 +92,10 @@ def subscribe():
         }), 201
 
     except Exception as e:
-        print(f"Error occurred: {str(e)}")  # Print full error in terminal
         return jsonify({"message": f"Internal Server Error: {str(e)}"}), 500
 
 @app.route('/save_selection', methods=['POST'])
 def save_selection():
-    """Receive user-selected province and date and store them in the database."""
     try:
         data = request.json  
         province = data.get('province')
@@ -123,7 +106,10 @@ def save_selection():
 
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO user_selections (province, date) VALUES (?, ?)', (province, selected_date))
+        cursor.execute(
+            'INSERT INTO user_selections (province, date) VALUES (%s, %s)',
+            (province, selected_date)
+        )
         conn.commit()
         conn.close()
 
@@ -132,29 +118,35 @@ def save_selection():
     except Exception as e:
         return jsonify({"message": f"Internal Server Error: {str(e)}"}), 500
 
+def create_tables():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Create subscribers table
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS subscribers (
+            id SERIAL PRIMARY KEY,
+            email TEXT NOT NULL,
+            latitude TEXT,
+            longitude TEXT
+        )
+    ''')
+
+    # Create user_selections table
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS user_selections (
+            id SERIAL PRIMARY KEY,
+            province TEXT NOT NULL,
+            date TEXT NOT NULL
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
+# --- Flask App Entry Point ---
 if __name__ == '__main__':
-    with sqlite3.connect(DATABASE) as conn:
-        cursor = conn.cursor()
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
 
-      
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS subscribers (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                email TEXT NOT NULL,
-                latitude TEXT,
-                longitude TEXT
-            )
-        ''')
-
-      
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS user_selections (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                province TEXT NOT NULL,
-                date TEXT NOT NULL
-            )
-        ''')
-
-        conn.commit()
-
-    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)

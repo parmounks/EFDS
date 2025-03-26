@@ -330,14 +330,13 @@ text-align: center;
   .result-box {
     margin-top: 20px;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 2px solid white;
+    background-color: #d4edda;    
+    color: #155724;                 
+    border: 2px solid #c3e6cb;      
     border-radius: 10px;
     font-size: 1.1rem;
     text-align: center;
-  }
-
+}
 
   .back-button-container {
     display: flex;
