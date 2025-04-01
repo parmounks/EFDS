@@ -5,14 +5,15 @@ import requests
 import os
 
 app = Flask(__name__, template_folder='templates')
+DB_PASSWORD = "Fitweball"
 
 # --- Database connection using PostgreSQL ---
 def get_db_connection():
     return psycopg2.connect(
         dbname="efds_main",
         user="postgres",
-        password=os.environ.get("DB_PASSWORD"),
-        host="34.121.207.94",  # Replace with your Cloud SQL public IP if needed
+        password=os.environ.get("DB_PASSWORD"), 
+        host="34.121.207.94", 
         port="5432"
     )
 
@@ -29,6 +30,9 @@ mail = Mail(app)
 @app.route('/')
 def home():
     return render_template('mainPage.html')
+@app.route('/next')
+def nextStep():
+    return render_template('nextStep.html')
 
 @app.route('/about')
 def about():
@@ -38,11 +42,15 @@ def about():
 def test_page():
     return render_template('testpage2.html')
 
+@app.route('/capstone')
+def capstone_page():
+    return render_template('capstoneTest.html')
+
 @app.route('/predict_fire', methods=['POST'])
 def proxy_predict():
     data = request.json
     try:
-        response = requests.post("https://efds-model-71702513350.us-central1.run.app/", json=data)  # 🔁 Update this to match your model endpoint
+        response = requests.post("https://efds-model-71702513350.us-central1.run.app/", json=data) 
         return jsonify(response.json()), response.status_code
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -94,6 +102,7 @@ def subscribe():
     except Exception as e:
         return jsonify({"message": f"Internal Server Error: {str(e)}"}), 500
 
+
 @app.route('/save_selection', methods=['POST'])
 def save_selection():
     try:
@@ -117,6 +126,34 @@ def save_selection():
 
     except Exception as e:
         return jsonify({"message": f"Internal Server Error: {str(e)}"}), 500
+
+@app.route('/send_test_email', methods=['POST'])
+def send_test_email():
+    try:
+        data = request.get_json()
+        email = data.get('email')
+
+        if not email:
+            return jsonify({"message": "Email is required"}), 400
+
+        msg = Message(
+            subject="EFDS Test Alert",
+            sender=app.config['MAIL_DEFAULT_SENDER'],
+            recipients=[email],
+        )
+        msg.body = (
+            f"Hi there,\n\n"
+            f"This is a one-time test email from EFDS.\n"
+            f"No information has been saved — this is just for demo purposes.\n\n"
+            f"Stay safe,\nThe EFDS Team"
+        )
+        mail.send(msg)
+
+        return jsonify({"message": "Test email sent successfully!"}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"Failed to send email: {str(e)}"}), 500
+
 
 def create_tables():
     conn = get_db_connection()
@@ -144,9 +181,12 @@ def create_tables():
     conn.commit()
     conn.close()
 
+@app.route('/health')
+def health():
+    return "OK", 200
 
 # --- Flask App Entry Point ---
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8080))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
 

@@ -1,0 +1,214 @@
+.container {
+    max-width: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    margin: 0 auto;
+  }
+  .content-wrapper {
+    border-radius: 30px;
+    width: 80%;
+    max-width: 1061px;
+    padding: 40px;
+    background-color: rgba(247, 244, 239, 0.98);
+  }
+  .info-section {
+    border-radius: 30px;
+    padding: 40px;
+    margin-bottom: 35px;
+    background-color: #ffffff;
+  }
+  .step-title {
+    color: #000000;
+    margin-bottom: 30px;
+    font: 700 25px "Roboto", sans-serif;
+  }
+  .step-description {
+    color: #4f4f4fe3;
+    margin-bottom: 50px;
+    font: 400 17px "Roboto", sans-serif;
+  }
+  .location-info {
+    margin-bottom: 30px;
+    font-size: 17px;
+  }
+  /*location 1 and 2*/
+  .location-title {
+    color: #000000;
+    font: 700 19px "Roboto", sans-serif;
+  }
+  .location-description {
+    color: #4f4f4fe3;
+    margin-top: 10px;
+    font: 400 17px "Roboto", sans-serif;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+  }
+  .location-button {
+    width: 210px;
+    height: 70px;
+    border-radius: 41.012px;
+    border: 0.82px solid #fb947d;
+    color: #000000;
+    cursor: pointer;
+    background-color: #fb947d;
+    font: 700 22px "Roboto", sans-serif;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .location-button:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 991px) {
+    .container {
+      max-width: 991px;
+    }
+    .content-wrapper {
+      max-width: 90%;
+      padding: 20px;
+    }
+    .info-section {
+      padding: 20px;
+    }
+    .step-title {
+      font-size: 20px;
+    }
+    .step-description {
+      font-size: 20px;
+    }
+    .location-title {
+      font-size: 28px;
+    }
+    .location-description {
+      font-size: 22px;
+    }
+    .button-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .location-button {
+      width: 100%;
+      max-width: 270px;
+      font-size: 27px;
+    }
+  }
+  @media (max-width: 640px) {
+    .container {
+      max-width: 640px;
+    }
+    .content-wrapper {
+      padding: 15px;
+      border-radius: 20px;
+    }
+    .info-section {
+      padding: 15px;
+    }
+    .step-title {
+      font-size: 28px;
+    }
+    .step-description {
+      font-size: 18px;
+    }
+    .location-title {
+      font-size: 24px;
+    }
+    .location-description {
+      font-size: 18px;
+    }
+    .location-button {
+      height: 60px;
+      font-size: 24px;
+    }
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+
+input[type="email"] {
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 10px;
+  border: 3px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  transition: border-color 0.3s;
+}
+
+
+input::placeholder {
+  color: #aaa;
+}
+
+
+.email-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.email-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.email-label {
+  font: 700 20px "Roboto", sans-serif;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+input[type="email"] {
+  padding: 18px 20px;
+  font-size: 18px;
+  border: 2px solid #fb947d;
+  border-radius: 25px;
+  background-color: #fff;
+  width: 60%;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="email"]:focus {
+  border-color: #fb947d;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(251, 148, 125, 0.2);
+}
+
+input::placeholder {
+  color: #aaa;
+  font-size: 15px;
+}
+
+
+.background-pic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.4);
+}

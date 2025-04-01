@@ -15,13 +15,12 @@
     <div class="subscribe-content">
       <h1 class="section-title">Welcome!</h1>
       <h3 class="section-body">Subscribe to receive notifications</h3>
-      
-      <form id="subscribeForm" class="form-wrapper" method="POST" action="/subscribe">
+      <form id="subscribeForm" class="form-wrapper" method="POST" action="/subscribe">  
         <div class="input-field email-field">
           <label for="email" class="input-label email-label visually-hidden">Email</label>
           <input type="email" id="email" name="email" aria-label="Email" placeholder="Enter your email" required>
         </div>
-        
+   
         <div class="input-field location-field">
           <button type="button" class="location-button" onclick="getLocation()">Get Live Location</button>
           <input type="hidden" id="latitude" name="latitude">

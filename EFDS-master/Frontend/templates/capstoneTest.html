@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='capstone.css') }}" />
+  </head>
+  <body>
+    <img class="background-pic" src="{{ url_for('static', filename='aboutusBackground.jpg') }}" />      
+    <div class="alert-section">
+      <h1 class="section-title">Permanent Alert</h1>
+      <div class="alert-container">
+        <div class="alert-content">
+          <p class="alert-text">
+            <span class="bold-text">
+              Ready to start receiving alerts?<br><br>
+              Awesome — let's get started!
+            </span>
+          </p>
+          <p class="alert-description">
+            With this system, our model will detect fire activity based on the
+            date and location you choose.
+          </p>
+        </div>
+        <div class="button-wrapper">
+          <button id="testSystemButton" class="action-button">Get Alert</button>
+        </div>
+      </div>
+
+      <h2 class="section-title">Run a Test!</h2>
+      <div class="alert-container">
+        <div class="alert-content">
+          <p class="alert-text">
+            <span class="bold-text">
+              Still deciding? No worries — we've got you covered!
+            </span>
+          </p>
+          <p class="alert-description">
+            Try out our system with a mock alert based on your selected location
+            and date. Don't worry, you won't receive any emails afterward!
+          </p>
+        </div>
+        <div class="button-wrapper">
+          <button id="nextStep" class="action-button">Test Alert</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const testSystemBtn = document.getElementById("testSystemButton");
+        if (testSystemBtn) {
+          testSystemBtn.addEventListener("click", function () {
+            window.location.href = "/test";
+          });
+        }
+      });
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        const nextStep = document.getElementById("nextStep");
+        if (nextStep) {
+          nextStep.addEventListener("click", function () {
+            window.location.href = "/next";
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

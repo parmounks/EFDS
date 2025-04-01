@@ -29,7 +29,7 @@ logging.basicConfig(
 )
 
 # NASA FIRMS API URL
-FIRMS_URL = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/e710ccc1baf9bf0673a8f3f40192e73f/VIIRS_SNPP_NRT/-141,41,-52,83/2"
+FIRMS_URL = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/e710ccc1baf9bf0673a8f3f40192e73f/VIIRS_SNPP_NRT/-145.4190,39.5975,-48.2010,85.1925/2"
 
 fire_data = []
 ALERT_RADIUS_KM = 15  # 15 km alert radius
@@ -87,6 +87,7 @@ def fetch_fire_data():
             logging.warning("No fire data found!")
             return  
         df["confidence"] = df["confidence"].map({"l": 30, "n": 60, "h": 90}).fillna(50)
+        df["color"] = df["confidence"].apply( lambda x: "red" if x >= 80 else "orange" if x >= 50 else "yellow"  )
         fire_data = df.to_dict(orient="records")
         
         generate_fire_map(df)  # Generate the fire map
@@ -128,15 +129,17 @@ def generate_fire_map(df, mode='light'):
     for _, row in df.iterrows():
         try:
             lat, lon = float(row["latitude"]), float(row["longitude"])
+            marker_color = row.get("color", "gray")  # fallback to gray if not found
             folium.CircleMarker(
                 location=[lat, lon],
                 radius=5,
-                color="red",
+                color=marker_color,
                 fill=True,
+                fill_color=marker_color,
                 fill_opacity=0.6,
-                popup=f"Fire at ({lat}, {lon})\nAcquired: {row.get('acq_date', 'N/A')} {row.get('acq_time', 'N/A')}"
+                popup=f"Fire at ({lat}, {lon})\nConfidence: {row.get('confidence', 'N/A')}\nAcquired: {row.get('acq_date', 'N/A')} {row.get('acq_time', 'N/A')}"
             ).add_to(fire_map)
-        except ValueError:
+        except ValueError: 
             logging.warning(f"Skipping invalid fire data: {row}")
 
     # Save the fire map
@@ -301,8 +304,12 @@ def trigger_fire_fetch():
         logging.error(f"Failed to fetch fire data manually: {e}")
         return jsonify({"error": str(e)}), 500
 
+@app.route('/health')
+def health():
+    return "OK", 200
+
 # Run Flask App
 if __name__ == "__main__":
     fetch_fire_data()
-    port = int(os.environ.get("PORT", 8080))
+    port = int(os.environ.get("PORT", 7080))
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)

@@ -1,0 +1,105 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscribe</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='nextStep.css') }}">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  integrity="sha512-..."
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+</head>
+
+<body>
+  <img class="background-pic" src="{{ url_for('static', filename='aboutusBackground.jpg') }}"></img>
+      <div class="container">
+        <div class="content-wrapper">
+          <div class="info-section">
+            <div>
+              <h2 class="step-title">
+                <i class="fa-regular fa-envelope" style="color: #fb947d; margin-right: 10px;"></i>
+                Step 1: Enter your email
+              </h2>
+              <p class="step-description">
+                This email will be used only for test purposes and will never be saved
+                to our database. For permanent access to the alert system please go to
+                main Page and subscribe.
+              </p>
+            </div>
+            <div>
+              <h2 class="step-title">
+                <i class="fa-solid fa-location-dot" style="color: #fb947d; margin-right: 10px;"></i>
+                     Step 2: Choose a location</h2>
+              <div class="location-info">
+                <h3 class="location-title">
+                  Location 1:</h3>
+                <p class="location-description">
+                  The model uses a preset satellite image showing fire, labels it as detected, and you’ll receive an email alert.
+                </p>
+              </div>
+              <div class="location-info">
+                <h3 class="location-title">Location 2:</h3>
+                <p class="location-description">
+                  The model uses a preset satellite image showing no fire, labels it accordingly, and you won’t receive any email for this test.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <form id="subscribeForm" class="email-form">
+            <div class="email-group">
+              <label for="emailInput" class="email-label">Email</label>
+              <input type="email" id="emailInput" name="email" placeholder="Enter your email" required>
+            </div>
+          </form>
+
+          <div class="button-container">
+              <button class="location-button" type="button" onclick="sendTestEmail()">
+              Location 1
+              <i class="fa-solid fa-fire" style="color: #ed4912;"></i>
+            </button>
+            <button class="location-button" type="button" onclick="sendTestEmail()">
+              Location 2
+              <i class="fa-solid fa-bell-slash" style="color: #FFD43B;"></i>
+            </button>
+          </div>
+        </div>
+  </section>
+  
+  <script> 
+   async function sendTestEmail() {
+    const email = document.getElementById("emailInput").value;
+
+    if (!email) {
+      alert("Please enter an email address.");
+      return;
+    }
+
+    try {
+  const response = await fetch('/send_test_email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email })
+  });
+
+  const text = await response.text(); // read it as text first
+  console.log("Raw response:", text);
+
+  const result = JSON.parse(text); // then try parsing it
+  if (!response.ok) throw new Error(result.message || "Error");
+
+  alert(result.message);
+} catch (error) {
+  alert(error.message || "An error occurred. Please try again.");
+}
+
+  }
+
+  </script>
+</body>
+</html>
